@@ -55,20 +55,21 @@ this.rotationZ = rotationZ;
 }
 
     let renderer = new THREE.WebGLRenderer({canvas: canvas}); // создаем рендеринг
-    renderer.setClearColor (0xffffff); // задаем цвет фона
+    renderer.setClearColor (0xF0F6FB); // задаем цвет фона
 // создание сцены
     let scene = new THREE.Scene();
 // создание камеры
     let camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
-    camera.position.set (0, 0, 1000);
+    camera.position.set (0, 0, 1500);
     camera.lookAt( scene.position );
 
 // создание света
-    var light = new THREE.AmbientLight (0xffffff);
+    var light = new THREE.AmbientLight (0xFFFFFF);
     scene.add(light); // добавляем свет в сцену
 
 // прокрутка мышью
-    let controls = new THREE.OrbitControls(camera, renderer.domElement);
+    let controls = new THREE.OrbitControls(camera, canvas);
+    controls.target.set(0, 5, 0)
  // вспомогательные векторы координат
     let axesHelper = new THREE.AxesHelper( 200 );
     scene.add( axesHelper );
