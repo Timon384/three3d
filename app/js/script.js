@@ -76,10 +76,12 @@ this.rotationZ = rotationZ;
 // прокрутка мышью
     controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+
 /*scene.add( line );*/
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
     let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру подложки
-
+   var axesHelper = new THREE.AxesHelper( 200 );// векторы координат
+    scene.add( axesHelper );
     // создание объектов
     let ball = new THREE.SphereGeometry (height/size_grid/2.5, 12, 12); // создание шарика
    /* let line = new THREE.Line( geometry, material );*/
