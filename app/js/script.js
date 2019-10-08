@@ -2,6 +2,7 @@ window.onload = function () {
 // задаем параметры окна (на всю страницу)
     var width = window.innerWidth;
     var height = window.innerHeight;
+
     let canvas = document.getElementById (`canvas`)
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
@@ -71,6 +72,12 @@ this.rotationZ = rotationZ;
 
 // прокрутка мышью
     let controls = new THREE.OrbitControls(camera, canvas);
+    controls.minAzimuthAngle = 0;
+    controls.maxAzimuthAngle = 0;
+    controls.minPolarAngle = Math.PI/1.7;
+    controls.maxPolarAngle = Math.PI/1.1;
+    controls.enableDamping = 0.1;
+    controls.rotateSpeed = 5;
     /*let controls = new THREE.TrackballControls(camera, canvas);
     controls.rotateSpeed = 3.0;
     controls.zoomSpeed = 1.2;
@@ -92,6 +99,7 @@ this.rotationZ = rotationZ;
     let texture_line = THREE.ImageUtils.loadTexture('app/static/images/gradient.jpg'); //определяем текстуру плоскости
 
     // создание объектов
+   /* let geometry_text = new THREE.TextGeometry(); // создание плоскости*/
     let geometry_plane = new THREE.PlaneGeometry( height, height, size_grid, size_grid); // создание плоскости
     let ball = new THREE.SphereGeometry (height/size_grid/2, 12, 12); // создание шарика
     let geometry_lines_x = new THREE.BoxGeometry(height, 4, 4); // создание линий сетки по оси х
