@@ -29,7 +29,7 @@ function matrixArray(rows,columns){
 }
 
 // генерируем параметры каждого шарика
-function matrixArray_ball(rows,columns,height,height){console.log(width,height)
+function matrixArray_ball(rows,columns,height,height){
   let arr = new Array();
   for(var i=0; i<size_grid; i++){
     arr[i] = new Array();
@@ -60,8 +60,10 @@ this.rotationZ = rotationZ;
     let scene = new THREE.Scene();
 // создание камеры
     let camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
-    camera.position.set (0, 0, 1500);
+    camera.position.set (0, -1100, 900);
     camera.lookAt( scene.position );
+
+
 
 // создание света
     var light = new THREE.AmbientLight (0xFFFFFF);
@@ -69,22 +71,34 @@ this.rotationZ = rotationZ;
 
 // прокрутка мышью
     let controls = new THREE.OrbitControls(camera, canvas);
-    controls.target.set(0, 5, 0)
+    /*let controls = new THREE.TrackballControls(camera, canvas);
+    controls.rotateSpeed = 3.0;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
+    controls.noZoom = false;
+    controls.noPan = false;
+    controls.staticMoving = true;
+    controls.dynamicDampingFactor = 0.1;
+    controls.minDistance = 1;
+	controls.maxDistance = Infinity;
+	controls.up0.set( 1, 1000, 0 );
+*/
  // вспомогательные векторы координат
     let axesHelper = new THREE.AxesHelper( 200 );
     scene.add( axesHelper );
     // текстуры
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
     let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру плоскости
+    let texture_line = THREE.ImageUtils.loadTexture('app/static/images/gradient.jpg'); //определяем текстуру плоскости
 
     // создание объектов
     let geometry_plane = new THREE.PlaneGeometry( height, height, size_grid, size_grid); // создание плоскости
-    let ball = new THREE.SphereGeometry (height/size_grid/2.5, 12, 12); // создание шарика
-    let geometry_lines_x = new THREE.BoxGeometry(height, 2, 2); // создание линий сетки по оси х
-    let geometry_lines_y = new THREE.BoxGeometry(2, height, 2); // создание линий сетки по оси у
+    let ball = new THREE.SphereGeometry (height/size_grid/2, 12, 12); // создание шарика
+    let geometry_lines_x = new THREE.BoxGeometry(height, 4, 4); // создание линий сетки по оси х
+    let geometry_lines_y = new THREE.BoxGeometry(4, height, 4); // создание линий сетки по оси у
    // материалы
     let basic_material = new THREE.MeshBasicMaterial( {color: 0x000000} ); // создание базового материала
-    let material_lines = new THREE.MeshLambertMaterial( {color: 0x2F342F} ); // создание материала
+    let material_lines = new THREE.MeshLambertMaterial( {map: texture_line} ); // создание материала
     let material_ball = new THREE.MeshLambertMaterial( {map: texture_ball} ); // создание материала
     let material_board = new THREE.MeshLambertMaterial( {map: texture_board} ); // создание материала
 //   Создание текстуры
@@ -107,12 +121,12 @@ for(var i=0; i<size_grid; i++){
   let mesh_lines_y = new THREE.Mesh (geometry_lines_y, material_lines);
   scene.add (mesh_lines_y);
   mesh_lines_y.position.x = i*height/size_grid-height/2;
-  mesh_lines_y.position.z = 1;
+  mesh_lines_y.position.z = 2;
     for(var j=0; j<=size_grid; j++){
     let mesh_lines_x = new THREE.Mesh (geometry_lines_x, material_lines);
     scene.add (mesh_lines_x);
     mesh_lines_x.position.y = i*height/size_grid-height/2;
-    mesh_lines_x.position.z =  1;
+    mesh_lines_x.position.z = 2;
 
     }
   }
