@@ -31,24 +31,31 @@ function matrixArray(rows,columns){
 
 // генерируем параметры каждого шарика
 function matrixArray_ball(rows,columns,height,height){
-  let arr = new Array();
-  for(var i=0; i<size_grid; i++){
-    arr[i] = new Array();
-    for(var j=0; j<size_grid; j++){
-        if ( matrix[i][j] === 1) {
-        class balls {
-constructor (positionX,positionY,positionZ,rotationX,rotationY,rotationZ) {
+class balls {
+constructor (positionX,positionY,positionZ,rotationX,rotationY,rotationZ,visible_balls) {
 this.positionX = positionX;
 this.positionY = positionY;
 this.positionZ = positionZ;
 this.rotationX = rotationX;
 this.rotationY = rotationY;
 this.rotationZ = rotationZ;
+this.visible_balls = visible_balls;
+let n;
 }
 }
-        let n =  new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001);
+
+  let arr = new Array();
+  for(var i=0; i<size_grid; i++){
+    arr[i] = new Array();
+    for(var j=0; j<size_grid; j++){
+        if ( matrix[i][j] === 1) {
+
+        n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, true);
         arr[i][j] = n;
-        } else{arr[i][j] = 0;}
+        } else {
+        n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, false);
+        arr[i][j] = n;
+       }
 
     }
   }
@@ -70,7 +77,7 @@ this.rotationZ = rotationZ;
     var light = new THREE.AmbientLight (0xFFFFFF);
     scene.add(light); // добавляем свет в сцену
 
-// прокрутка мышью
+// вращение мышью
     let controls = new THREE.OrbitControls(camera, canvas);
     controls.minAzimuthAngle = 0;
     controls.maxAzimuthAngle = 0;
@@ -78,19 +85,8 @@ this.rotationZ = rotationZ;
     controls.maxPolarAngle = Math.PI/1.1;
     controls.enableDamping = 0.1;
     controls.rotateSpeed = 5;
-    /*let controls = new THREE.TrackballControls(camera, canvas);
-    controls.rotateSpeed = 3.0;
-    controls.zoomSpeed = 1.2;
-    controls.panSpeed = 0.8;
-    controls.noZoom = false;
-    controls.noPan = false;
-    controls.staticMoving = true;
-    controls.dynamicDampingFactor = 0.1;
-    controls.minDistance = 1;
-	controls.maxDistance = Infinity;
-	controls.up0.set( 1, 1000, 0 );
-*/
- // вспомогательные векторы координат
+
+ // вспомогательные векторы координат (убрать в релизе)
     let axesHelper = new THREE.AxesHelper( 200 );
     scene.add( axesHelper );
     // текстуры
@@ -115,7 +111,7 @@ this.rotationZ = rotationZ;
 // отображение массива шариков
 for(var i=0; i<size_grid; i++){
     for(var j=0; j<size_grid; j++){
-        if ( matrix_balls[i][j] !== 0) {
+        if ( matrix_balls[i][j].visible_balls !== false) {
     let mesh = new THREE.Mesh (ball, material_ball);
     mesh.position.x = matrix_balls[i][j].positionX;
     mesh.position.y = matrix_balls[i][j].positionY;
