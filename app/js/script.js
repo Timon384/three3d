@@ -3,6 +3,7 @@ window.onload = function () {
     var width = window.innerWidth;
     var height = window.innerHeight;
     var objects = [];
+    this.mouse2D = new THREE.Vector3( 0, 0, 0.5 );
     let canvas = document.getElementById (`canvas`)
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
@@ -85,9 +86,9 @@ let n;
     controls.enableDamping = 0.1;
     controls.rotateSpeed = 5;
 
- // вспомогательные векторы координат (убрать в релизе)
+ /*// вспомогательные векторы координат (убрать в релизе)
     let axesHelper = new THREE.AxesHelper( 200 );
-    scene.add( axesHelper );
+    scene.add( axesHelper );*/
 
    // координаты мышки
 
@@ -96,11 +97,23 @@ let n;
         ( event.clientX / width ) * 2 - 1,
       - ( event.clientY / height ) * 2 + 1,
         1 );
+        console.log (event.clientX);
     projector.unprojectVector( vector, camera );
     let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     let intersects = raycaster.intersectObjects(objects);
 
+function mouseMove( event )
+{
+	// update the mouse variable
+	mouse2D.x =   ( event.clientX / window.innerWidth  ) * 2 - 1;
+	mouse2D.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
+}
+
+function mouseClick( event )
+{
+	console.log ('click')
+}
     //  Создание текстуры
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
     let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру плоскости
@@ -170,8 +183,12 @@ mesh.rotation.z += 0.001;*/
 controls.update();
     renderer.render (scene, camera); // включаем в рендеринг сцену и камеру
     requestAnimationFrame (function () {loop();}); // включаем цикл
+    document.addEventListener( 'mousemove', mouseMove,  false );
+	document.addEventListener( 'mousedown', mouseClick, false );
 }
 
 loop (); // вызов созданной сцены
+
+
 
 }
