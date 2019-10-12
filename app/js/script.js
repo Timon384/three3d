@@ -2,16 +2,16 @@ window.onload = function () {
 // задаем параметры окна (на всю страницу)
     var width = window.innerWidth;
     var height = window.innerHeight;
-
+    var objects = [];
     let canvas = document.getElementById (`canvas`)
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
-let size_grid = 20;
+    let size_grid = 20; // задаем размеры сетки
 
 let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
 let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 console.log (matrix_balls);
-// выбор сетки
+
 
 // функция создания новой матрицы
 function matrixArray(rows,columns){
@@ -62,7 +62,8 @@ let n;
   return arr;
 }
 
-    let renderer = new THREE.WebGLRenderer({canvas: canvas}); // создаем рендеринг
+// создаем рендеринг
+    let renderer = new THREE.WebGLRenderer({canvas: canvas});
     renderer.setClearColor (0xF0F6FB); // задаем цвет фона
 // создание сцены
     let scene = new THREE.Scene();
@@ -70,12 +71,10 @@ let n;
     let camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 900);
     camera.lookAt( scene.position );
-
-
-
 // создание света
     var light = new THREE.AmbientLight (0xFFFFFF);
     scene.add(light); // добавляем свет в сцену
+
 
 // вращение мышью
     let controls = new THREE.OrbitControls(camera, canvas);
@@ -89,7 +88,20 @@ let n;
  // вспомогательные векторы координат (убрать в релизе)
     let axesHelper = new THREE.AxesHelper( 200 );
     scene.add( axesHelper );
-    // текстуры
+
+   // координаты мышки
+
+   let projector = new THREE.Projector();
+   let vector = new THREE.Vector3(
+        ( event.clientX / width ) * 2 - 1,
+      - ( event.clientY / height ) * 2 + 1,
+        1 );
+    projector.unprojectVector( vector, camera );
+    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    let intersects = raycaster.intersectObjects(objects);
+
+
+    //  Создание текстуры
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
     let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру плоскости
     let texture_line = THREE.ImageUtils.loadTexture('app/static/images/gradient.jpg'); //определяем текстуру плоскости
@@ -104,20 +116,30 @@ let n;
     let basic_material = new THREE.MeshBasicMaterial( {color: 0x000000} ); // создание базового материала
     let material_lines = new THREE.MeshLambertMaterial( {map: texture_line} ); // создание материала
     let material_ball = new THREE.MeshLambertMaterial( {map: texture_ball} ); // создание материала
+    let material_ball_transparence = new THREE.MeshPhysicalMaterial( {map: texture_ball, transparent: true, transparency: 1} ); // создание прозрачного материала
     let material_board = new THREE.MeshLambertMaterial( {map: texture_board} ); // создание материала
-//   Создание текстуры
+
 
 
 // отображение массива шариков
 for(var i=0; i<size_grid; i++){
     for(var j=0; j<size_grid; j++){
+
         if ( matrix_balls[i][j].visible_balls !== false) {
     let mesh = new THREE.Mesh (ball, material_ball);
     mesh.position.x = matrix_balls[i][j].positionX;
     mesh.position.y = matrix_balls[i][j].positionY;
     mesh.position.z = matrix_balls[i][j].positionZ;
     scene.add (mesh);
-        } else {}
+    objects.push (mesh);
+        } else {
+        let mesh = new THREE.Mesh (ball, material_ball_transparence);
+    mesh.position.x = matrix_balls[i][j].positionX;
+    mesh.position.y = matrix_balls[i][j].positionY;
+    mesh.position.z = matrix_balls[i][j].positionZ;
+    scene.add (mesh);
+    objects.push (mesh);
+        }
     }
   }
 // генератор сетки
@@ -134,8 +156,6 @@ for(var i=0; i<size_grid; i++){
 
     }
   }
-
-
     let mesh = new THREE.Mesh (geometry_plane, material_board);
     mesh.position.x = 0;
     mesh.position.y = 0;
@@ -146,6 +166,7 @@ for(var i=0; i<size_grid; i++){
 function loop() {
 /*mesh.position.z = 50;
 mesh.rotation.z += 0.001;*/
+
 controls.update();
     renderer.render (scene, camera); // включаем в рендеринг сцену и камеру
     requestAnimationFrame (function () {loop();}); // включаем цикл
