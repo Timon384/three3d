@@ -3,14 +3,14 @@ window.onload = function () {
     var width = window.innerWidth;
     var height = window.innerHeight;
     var objects = [];
-    this.mouse2D = new THREE.Vector3( 0, 0, 0.5 );
+   /* mouse2D = new THREE.Vector3( 0, 0, 0.5 );*/
     let canvas = document.getElementById (`canvas`)
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
     let size_grid = 20; // задаем размеры сетки
 
 let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
-let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
+var matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 console.log (matrix_balls);
 
 
@@ -32,25 +32,23 @@ function matrixArray(rows,columns){
 
 // генерируем параметры каждого шарика
 function matrixArray_ball(rows,columns,height,height){
-class balls {
-constructor (positionX,positionY,positionZ,rotationX,rotationY,rotationZ,visible_balls) {
-this.positionX = positionX;
-this.positionY = positionY;
-this.positionZ = positionZ;
-this.rotationX = rotationX;
-this.rotationY = rotationY;
-this.rotationZ = rotationZ;
-this.visible_balls = visible_balls;
-let n;
+    class balls {
+    constructor (positionX,positionY,positionZ,rotationX,rotationY,rotationZ,visible_balls) {
+    this.positionX = positionX;
+    this.positionY = positionY;
+    this.positionZ = positionZ;
+    this.rotationX = rotationX;
+    this.rotationY = rotationY;
+    this.rotationZ = rotationZ;
+    this.visible_balls = visible_balls;
+    let n;
+    }
 }
-}
-
   let arr = new Array();
-  for(var i=0; i<size_grid; i++){
+  for(let i=0; i<size_grid; i++){
     arr[i] = new Array();
-    for(var j=0; j<size_grid; j++){
+    for(let j=0; j<size_grid; j++){
         if ( matrix[i][j] === 1) {
-
         n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, true);
         arr[i][j] = n;
         } else {
@@ -89,31 +87,47 @@ let n;
  /*// вспомогательные векторы координат (убрать в релизе)
     let axesHelper = new THREE.AxesHelper( 200 );
     scene.add( axesHelper );*/
-
+console.log (matrix_balls);
    // координаты мышки
-
-   let projector = new THREE.Projector();
-   let vector = new THREE.Vector3(
+function onDocumentMouseDown () {
+   var projector = new THREE.Projector();
+   var vector = new THREE.Vector3(
         ( event.clientX / width ) * 2 - 1,
       - ( event.clientY / height ) * 2 + 1,
         1 );
-        console.log (event.clientX);
-    projector.unprojectVector( vector, camera );
-    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    let intersects = raycaster.intersectObjects(objects);
 
-function mouseMove( event )
-{
+    projector.unprojectVector( vector, camera );
+    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    var intersects = raycaster.intersectObjects(objects);
+    if (intersects.length > 0) {
+    console.log (intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z)
+    for(let i=0; i<size_grid; i++){
+        for(let j=0; j<size_grid; j++){
+            if ( matrix_balls[i][j].positionX === intersects[0].object.position.x && matrix_balls[i][j].positionY ===
+            intersects[0].object.position.y && matrix_balls[i][j].positionZ === intersects[0].object.position.z) {
+            console.log (matrix_balls[i][j].visible_balls);
+            if (matrix_balls[i][j].visible_balls === true) {
+            matrix_balls[i][j].visible_balls = false;
+            } else {matrix_balls[i][j].visible_balls = true;}
+            console.log (matrix_balls[i][j].visible_balls);
+            } else {}
+    }
+  }
+    } else {}
+return matrix_balls;
+}
+
+/*function mouseMove( event ) {
 	// update the mouse variable
 	mouse2D.x =   ( event.clientX / window.innerWidth  ) * 2 - 1;
 	mouse2D.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
 }
 
-function mouseClick( event )
-{
-	console.log ('click')
-}
+function mouseClick( event ) {
+	console.log ();
+	console.log (mouse2D.x,event.clientY,vector);
+}*/
     //  Создание текстуры
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
     let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру плоскости
@@ -183,8 +197,7 @@ mesh.rotation.z += 0.001;*/
 controls.update();
     renderer.render (scene, camera); // включаем в рендеринг сцену и камеру
     requestAnimationFrame (function () {loop();}); // включаем цикл
-    document.addEventListener( 'mousemove', mouseMove,  false );
-	document.addEventListener( 'mousedown', mouseClick, false );
+	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 }
 
 loop (); // вызов созданной сцены
