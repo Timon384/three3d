@@ -99,22 +99,29 @@ function onDocumentMouseDown () {
     projector.unprojectVector( vector, camera );
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var intersects = raycaster.intersectObjects(objects);
+    let selectedObject;
     if (intersects.length > 0) {
-    console.log (intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z)
     for(let i=0; i<size_grid; i++){
         for(let j=0; j<size_grid; j++){
             if ( matrix_balls[i][j].positionX === intersects[0].object.position.x && matrix_balls[i][j].positionY ===
             intersects[0].object.position.y && matrix_balls[i][j].positionZ === intersects[0].object.position.z) {
-            console.log (matrix_balls[i][j].visible_balls);
             if (matrix_balls[i][j].visible_balls === true) {
+            console.log (intersects[0].object.name);
             matrix_balls[i][j].visible_balls = false;
-            } else {matrix_balls[i][j].visible_balls = true;}
-            console.log (matrix_balls[i][j].visible_balls);
+            selectedObject = scene.getObjectByName(intersects[0].object.name);
+            selectedObject.material = material_ball_transparence;
+            } else {matrix_balls[i][j].visible_balls = true;
+            console.log (intersects[0].object.name);
+            selectedObject = scene.getObjectByName(intersects[0].object.name);
+           selectedObject.material = material_ball;
+
+            }
+
             } else {}
     }
   }
     } else {}
-return matrix_balls;
+console.log (matrix_balls)
 }
 
 /*function mouseMove( event ) {
@@ -149,6 +156,9 @@ function mouseClick( event ) {
 
 
 // отображение массива шариков
+function ballsView () {
+objects = [];
+/*scene.children = [];*/
 for(var i=0; i<size_grid; i++){
     for(var j=0; j<size_grid; j++){
 
@@ -157,6 +167,7 @@ for(var i=0; i<size_grid; i++){
     mesh.position.x = matrix_balls[i][j].positionX;
     mesh.position.y = matrix_balls[i][j].positionY;
     mesh.position.z = matrix_balls[i][j].positionZ;
+    mesh.name = "i-"+i+" j-"+j;
     scene.add (mesh);
     objects.push (mesh);
         } else {
@@ -164,11 +175,14 @@ for(var i=0; i<size_grid; i++){
     mesh.position.x = matrix_balls[i][j].positionX;
     mesh.position.y = matrix_balls[i][j].positionY;
     mesh.position.z = matrix_balls[i][j].positionZ;
+    mesh.name = "i-"+i+" j-"+j;
     scene.add (mesh);
     objects.push (mesh);
         }
     }
   }
+  console.log (scene)
+ }
 // генератор сетки
   for(var i=0; i<=size_grid; i++){
   let mesh_lines_y = new THREE.Mesh (geometry_lines_y, material_lines);
@@ -183,12 +197,14 @@ for(var i=0; i<size_grid; i++){
 
     }
   }
+
+  // генератор доски
     let mesh = new THREE.Mesh (geometry_plane, material_board);
     mesh.position.x = 0;
     mesh.position.y = 0;
     mesh.position.z = 0;
     scene.add (mesh);
-
+ballsView ();
 // создаем движение
 function loop() {
 /*mesh.position.z = 50;
