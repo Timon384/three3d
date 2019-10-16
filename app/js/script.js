@@ -1,17 +1,17 @@
-window.onload = function () {
+window.onload =  async function () {
 // задаем параметры окна (на всю страницу)
-    var width = window.innerWidth;
-    var height = window.innerHeight;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
     var objects = [];
-   /* mouse2D = new THREE.Vector3( 0, 0, 0.5 );*/
+    var loader = new THREE.FontLoader();
     let canvas = document.getElementById (`canvas`)
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
     let size_grid = 20; // задаем размеры сетки
+    const font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
+    let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
+    var matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 
-let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
-var matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
-console.log (matrix_balls);
 
 
 // функция создания новой матрицы
@@ -63,18 +63,38 @@ function matrixArray_ball(rows,columns,height,height){
 
 // создаем рендеринг
     let renderer = new THREE.WebGLRenderer({canvas: canvas});
-    renderer.setClearColor (0xF0F6FB); // задаем цвет фона
+    renderer.setClearColor (0x000000); // задаем цвет фона
 // создание сцены
     let scene = new THREE.Scene();
+    scene.position.x = -250;
+    console.log (scene.position);
 // создание камеры
-    let camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
+    let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 900);
     camera.lookAt( scene.position );
 // создание света
-    var light = new THREE.AmbientLight (0xFFFFFF);
-    scene.add(light); // добавляем свет в сцену
+    var light = new THREE.AmbientLight (0xFFFFFF); // добавляем свет в сцену
 
 
+    /*let skyColor =0xB1E1FF;
+    let groundColor = 0xB27120;
+    let intensity = 1;
+    var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);*/
+
+
+    /*var light = new THREE.PointLight( 0xFFFFFF, 1, 1000 );
+    light.position.set( 150, -150, 150 );
+
+
+/*const color = 0xFFFFFF;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(100, -100, 100);
+    light.target.position.set(-5, 0, 0);
+    scene.add(light);
+    scene.add(light.target);*/
+
+scene.add(light);
 // вращение мышью
     let controls = new THREE.OrbitControls(camera, canvas);
     controls.minAzimuthAngle = 0;
@@ -88,13 +108,15 @@ function matrixArray_ball(rows,columns,height,height){
     let axesHelper = new THREE.AxesHelper( 200 );
     scene.add( axesHelper );*/
 console.log (matrix_balls);
-   // координаты мышки
+
+
+   // установка шариков
 function onDocumentMouseDown () {
    var projector = new THREE.Projector();
    var vector = new THREE.Vector3(
         ( event.clientX / width ) * 2 - 1,
       - ( event.clientY / height ) * 2 + 1,
-        1 );
+        1);
 
     projector.unprojectVector( vector, camera );
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
@@ -124,17 +146,7 @@ function onDocumentMouseDown () {
 console.log (matrix_balls)
 }
 
-/*function mouseMove( event ) {
-	// update the mouse variable
-	mouse2D.x =   ( event.clientX / window.innerWidth  ) * 2 - 1;
-	mouse2D.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-}
-
-function mouseClick( event ) {
-	console.log ();
-	console.log (mouse2D.x,event.clientY,vector);
-}*/
     //  Создание текстуры
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
     let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру плоскости
@@ -146,16 +158,32 @@ function mouseClick( event ) {
     let ball = new THREE.SphereGeometry (height/size_grid/2, 12, 12); // создание шарика
     let geometry_lines_x = new THREE.BoxGeometry(height, 4, 4); // создание линий сетки по оси х
     let geometry_lines_y = new THREE.BoxGeometry(4, height, 4); // создание линий сетки по оси у
+    // фцункция создания геометрии текста
+    function create_text_geometry (texts,font,size,height,curveSegments,bevelEnabled,bevelThickness,bevelSize,bevelSegments) {
+    let geometry_text = new THREE.TextBufferGeometry(texts, { // создание геометрии текста
+        font: font,
+        size: size,
+        height: height,
+        curveSegments: curveSegments,
+        bevelEnabled: bevelEnabled,
+        bevelThickness: bevelThickness,
+        bevelSize: bevelSize,
+        bevelSegments: bevelSegments,
+      });
+      return geometry_text;
+}
+
    // материалы
     let basic_material = new THREE.MeshBasicMaterial( {color: 0x000000} ); // создание базового материала
     let material_lines = new THREE.MeshLambertMaterial( {map: texture_line} ); // создание материала
     let material_ball = new THREE.MeshLambertMaterial( {map: texture_ball} ); // создание материала
     let material_ball_transparence = new THREE.MeshPhysicalMaterial( {map: texture_ball, transparent: true, transparency: 1} ); // создание прозрачного материала
     let material_board = new THREE.MeshLambertMaterial( {map: texture_board} ); // создание материала
+    let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x15ee00});
 
 
 
-// отображение массива шариков
+// функция массива шариков
 function ballsView () {
 objects = [];
 /*scene.children = [];*/
@@ -183,7 +211,9 @@ for(var i=0; i<size_grid; i++){
   }
   console.log (scene)
  }
-// генератор сетки
+
+// функция генерации сетки
+function create_grid () {
   for(var i=0; i<=size_grid; i++){
   let mesh_lines_y = new THREE.Mesh (geometry_lines_y, material_lines);
   scene.add (mesh_lines_y);
@@ -197,20 +227,58 @@ for(var i=0; i<size_grid; i++){
 
     }
   }
-
-  // генератор доски
+}
+// генератор доски
+function board () {
     let mesh = new THREE.Mesh (geometry_plane, material_board);
     mesh.position.x = 0;
     mesh.position.y = 0;
     mesh.position.z = 0;
     scene.add (mesh);
+}
+
+// функция отображения названия игры
+function text_game () {
+
+let mesh_text = new THREE.Mesh (
+create_text_geometry ("GAME LIFE",font,100,20,12,true,0.15,0.3,5 ),
+material_text);
+mesh_text.position.x = -350;
+mesh_text.position.y =  200;
+mesh_text.position.z = 300;
+mesh_text.rotation.x = 1.59;
+scene.add (mesh_text);
+}
+// функция отображения кнопки
+function buttons (text_button,x,y,z,rotationX,rotationY,rotationZ) {
+let mesh_text = new THREE.Mesh (
+create_text_geometry (text_button,font,80,20,12,true,0.15,0.3,5 ),
+material_text);
+mesh_text.position.x = x;
+mesh_text.position.y =  y;
+mesh_text.position.z = z;
+mesh_text.rotation.x = rotationX;
+mesh_text.rotation.y = rotationY;
+mesh_text.rotation.z = rotationZ;
+mesh_text.name = text_button;
+scene.add (mesh_text);
+}
+
 ballsView ();
+create_grid ();
+board ();
+text_game();
+buttons("button1", 500, 000, 300, 1.59,-0.19,0);
+buttons("button2", 500, 000, 150,1.59,-0.19,0);
+buttons("button3", 500, 000, 00,1.59,-0.19,0);
+buttons("butt4", -300, -400, -100,1.4,0.0,0);
+buttons("butt5", 100, -400, -100,1.4,0.0,0);
 // создаем движение
 function loop() {
 /*mesh.position.z = 50;
 mesh.rotation.z += 0.001;*/
 
-controls.update();
+    controls.update();
     renderer.render (scene, camera); // включаем в рендеринг сцену и камеру
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -218,6 +286,15 @@ controls.update();
 
 loop (); // вызов созданной сцены
 
+// загрузим шрифт
 
+
+function loadFont(url) {
+      return new Promise((resolve, reject) => {
+        loader.load(url, resolve, undefined, reject);
+      });
+    }
+
+console.log (font);
 
 }
