@@ -67,15 +67,13 @@ function matrixArray_ball(rows,columns,height,height){
 // создание сцены
     let scene = new THREE.Scene();
     scene.position.x = -250;
-    console.log (scene.position);
+    /*console.log (gridHelper);*/
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 900);
     camera.lookAt( scene.position );
 // создание света
     var light = new THREE.AmbientLight (0xFFFFFF); // добавляем свет в сцену
-
-
     /*let skyColor =0xB1E1FF;
     let groundColor = 0xB27120;
     let intensity = 1;
@@ -93,8 +91,8 @@ function matrixArray_ball(rows,columns,height,height){
     light.target.position.set(-5, 0, 0);
     scene.add(light);
     scene.add(light.target);*/
-
 scene.add(light);
+
 // вращение мышью
     let controls = new THREE.OrbitControls(camera, canvas);
     controls.minAzimuthAngle = 0;
@@ -104,10 +102,7 @@ scene.add(light);
     controls.enableDamping = 0.1;
     controls.rotateSpeed = 5;
 
- /*// вспомогательные векторы координат (убрать в релизе)
-    let axesHelper = new THREE.AxesHelper( 200 );
-    scene.add( axesHelper );*/
-console.log (matrix_balls);
+
 
 
    // установка шариков
@@ -123,6 +118,19 @@ function onDocumentMouseDown () {
     var intersects = raycaster.intersectObjects(objects);
     let selectedObject;
     if (intersects.length > 0) {
+    selectedObject = scene.getObjectByName(intersects[0].object.name);
+
+    if (selectedObject.name === "random") {
+    /*let n = scene.children.random;
+    console.log (n);*/
+    let color = new THREE.Color( 0xff0000 );
+    intersects[0].object.material.color = color;
+    /*matrix = matrixArray(size_grid,size_grid);
+    matrix_balls = matrixArray_ball(size_grid,size_grid,width,height)*/
+
+
+
+    } else
     for(let i=0; i<size_grid; i++){
         for(let j=0; j<size_grid; j++){
             if ( matrix_balls[i][j].positionX === intersects[0].object.position.x && matrix_balls[i][j].positionY ===
@@ -143,9 +151,8 @@ function onDocumentMouseDown () {
     }
   }
     } else {}
-console.log (matrix_balls)
-}
 
+}
 
     //  Создание текстуры
     let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
@@ -158,6 +165,7 @@ console.log (matrix_balls)
     let ball = new THREE.SphereGeometry (height/size_grid/2, 12, 12); // создание шарика
     let geometry_lines_x = new THREE.BoxGeometry(height, 4, 4); // создание линий сетки по оси х
     let geometry_lines_y = new THREE.BoxGeometry(4, height, 4); // создание линий сетки по оси у
+
     // фцункция создания геометрии текста
     function create_text_geometry (texts,font,size,height,curveSegments,bevelEnabled,bevelThickness,bevelSize,bevelSegments) {
     let geometry_text = new THREE.TextBufferGeometry(texts, { // создание геометрии текста
@@ -186,7 +194,6 @@ console.log (matrix_balls)
 // функция массива шариков
 function ballsView () {
 objects = [];
-/*scene.children = [];*/
 for(var i=0; i<size_grid; i++){
     for(var j=0; j<size_grid; j++){
 
@@ -218,12 +225,12 @@ function create_grid () {
   let mesh_lines_y = new THREE.Mesh (geometry_lines_y, material_lines);
   scene.add (mesh_lines_y);
   mesh_lines_y.position.x = i*height/size_grid-height/2;
-  mesh_lines_y.position.z = 2;
+  mesh_lines_y.position.z = 1;
     for(var j=0; j<=size_grid; j++){
     let mesh_lines_x = new THREE.Mesh (geometry_lines_x, material_lines);
     scene.add (mesh_lines_x);
     mesh_lines_x.position.y = i*height/size_grid-height/2;
-    mesh_lines_x.position.z = 2;
+    mesh_lines_x.position.z = 1;
 
     }
   }
@@ -262,17 +269,19 @@ mesh_text.rotation.y = rotationY;
 mesh_text.rotation.z = rotationZ;
 mesh_text.name = text_button;
 scene.add (mesh_text);
+objects.push (mesh_text)
 }
 
 ballsView ();
 create_grid ();
 board ();
 text_game();
-buttons("button1", 500, 000, 300, 1.59,-0.19,0);
-buttons("button2", 500, 000, 150,1.59,-0.19,0);
-buttons("button3", 500, 000, 00,1.59,-0.19,0);
+buttons("random", 500, 000, 300, 1.59,-0.19,0);
+buttons("start game", 500, 000, 150,1.59,-0.19,0);
+buttons("clear", 500, 000, 00,1.59,-0.19,0);
 buttons("butt4", -300, -400, -100,1.4,0.0,0);
 buttons("butt5", 100, -400, -100,1.4,0.0,0);
+
 // создаем движение
 function loop() {
 /*mesh.position.z = 50;
@@ -282,6 +291,7 @@ mesh.rotation.z += 0.001;*/
     renderer.render (scene, camera); // включаем в рендеринг сцену и камеру
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
 }
 
 loop (); // вызов созданной сцены
@@ -295,6 +305,24 @@ function loadFont(url) {
       });
     }
 
-console.log (font);
+/*console.log (font);
 
+var size_1 = height/size_grid*20;
+var divisions = size_grid;
+
+var gridHelper = new THREE.GridHelper( size_1, divisions );
+gridHelper.position.z =1;
+gridHelper.rotation.x = 1.57;
+gridHelper.color = 0xFFFFFF;
+scene.add( gridHelper );
+console.log (gridHelper);*/
+
+
+/*function button1_click () {
+if (intersects.length > 0) {
+    if (intersects[0].name === "Random") {
+    intersects[0].color = 0xFFFFFF;
+    } else {}
+} else {}
+}*/
 }

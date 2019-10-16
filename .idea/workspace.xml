@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2f60abf-4f68-4d86-8a66-5904cc79a22a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/js/fonts/helvetiker_bold.typeface.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,23 +16,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="65" column="36" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="36" />
+            <state relative-caret-position="153">
+              <caret line="123" column="30" lean-forward="true" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
               <folding>
-                <element signature="e#0#8369#0" />
-                <element signature="e#0#9175#0" />
-                <element signature="e#0#8369#0" />
-                <element signature="e#0#8489#0" />
+                <element signature="e#0#10385#0" />
+                <element signature="e#0#10385#0" />
+                <element signature="e#0#10385#0" />
+                <element signature="e#0#10385#0" />
+                <element signature="e#0#10385#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/js/fonts/helvetiker_bold.typeface.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="59034" selection-start-column="59024" selection-end-column="59034" />
             </state>
           </provider>
         </entry>
@@ -43,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+            <state relative-caret-position="17">
+              <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -63,7 +52,6 @@
       <find>controls</find>
       <find>console.log</find>
       <find>document.addEventListener</find>
-      <find>intersects</find>
       <find>projector</find>
       <find>mouse2D.clone</find>
       <find>document</find>
@@ -76,9 +64,16 @@
       <find>scene.add</find>
       <find>font_family_name</find>
       <find>loader</find>
-      <find>objects</find>
       <find>matrixArray_ball</find>
       <find>loadFont</find>
+      <find>size_grid</find>
+      <find>text</find>
+      <find>mouseclick</find>
+      <find>intersects</find>
+      <find>console.lo</find>
+      <find>getObjectByName</find>
+      <find>objects</find>
+      <find>matrixArray</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,8 +201,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30227882" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30630028" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -255,13 +251,6 @@
     <entry file="file://$PROJECT_DIR$/app/js/renderers/Projector.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/js/fonts/helvetiker_bold.typeface.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -269,15 +258,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="65" column="36" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="36" />
+        <state relative-caret-position="153">
+          <caret line="123" column="30" lean-forward="true" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
           <folding>
-            <element signature="e#0#8369#0" />
-            <element signature="e#0#9175#0" />
-            <element signature="e#0#8369#0" />
-            <element signature="e#0#8489#0" />
+            <element signature="e#0#10385#0" />
+            <element signature="e#0#10385#0" />
+            <element signature="e#0#10385#0" />
+            <element signature="e#0#10385#0" />
+            <element signature="e#0#10385#0" />
           </folding>
         </state>
       </provider>
