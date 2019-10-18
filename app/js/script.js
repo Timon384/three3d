@@ -2,9 +2,8 @@ window.onload =  async function () {
 // задаем параметры окна (на всю страницу)
     let width = window.innerWidth;
     let height = window.innerHeight;
-    /*let timeoutID = window.setTimeout(console.log("timeout"), [1000]);*/
-    var objects = [];
-    var loader = new THREE.FontLoader();
+    let objects = [];
+    let loader = new THREE.FontLoader();
     let canvas = document.getElementById (`canvas`)
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
@@ -23,9 +22,9 @@ window.onload =  async function () {
 // функция создания новой матрицы
 function matrixArray(rows,columns){
   let arr = new Array();
-  for(var i=0; i<rows; i++){
+  for(let i=0; i<rows; i++){
     arr[i] = new Array();
-    for(var j=0; j<columns; j++){
+    for(let j=0; j<columns; j++){
     n =Math.random();/*Math.random() вернуть после отладки*/
         if ( n <= 0.8) {
         arr[i][j] = 0;
@@ -76,51 +75,31 @@ function matrixArray_ball(rows,columns,height,height){
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 700);
-    console.log (camera.rotation)
+
 
 // создание света
-    /*var light = new THREE.AmbientLight (0xFFFFFF,1.0); // добавляем свет в сцену*/
-    /*let skyColor =0xB1E1FF;
-    let groundColor = 0xB27120;
-    let intensity = 1;
-    var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
-    var helper = new THREE.HemisphereLightHelper( light, 1000 );
-    light.position.set(200, -300, 000);
-    scene.add(helper);*/
-
-    let light = new THREE.PointLight( 0xFFFFFF, 1, 1000 );
+    /*let light = new THREE.AmbientLight (0xFFFFFF,1.0);*/
+    // добавляем точечный свет
+    let light = new THREE.PointLight( 0xFFFFFF, 1.0, 1000 );
     let light1 = new THREE.PointLight( 0xFFFFFF, 2.0, 1000 );
-    let light2 = new THREE.PointLight( 0xFFFFFF, 2, 1000 );
-    let light3 = new THREE.PointLight( 0xFFFFFF, 2, 1000 );
-
+    let light2 = new THREE.PointLight( 0xFFFFFF, 2.0, 1000 );
+    let light3 = new THREE.PointLight( 0xFFFFFF, 2.0, 1000 );
+// устанавливаем координаты света
     light.position.set( 800, -350, 450 );
     light1.position.set( -100, -100, 350 );
     light2.position.set( 200, -550, -50 );
     light3.position.set( 1100, -450, -50 );
-    var pointLightHelper = new THREE.PointLightHelper( light, 100 );
-    var pointLightHelper1 = new THREE.PointLightHelper( light1, 100 );
-    var pointLightHelper2 = new THREE.PointLightHelper( light2, 100 );
-    var pointLightHelper3 = new THREE.PointLightHelper( light3, 100 );
-    /*scene.add(pointLightHelper);
+ /* let pointLightHelper = new THREE.PointLightHelper( light, 100 ); // вспомогательные вектора света
+    let pointLightHelper1 = new THREE.PointLightHelper( light1, 100 );
+    let pointLightHelper2 = new THREE.PointLightHelper( light2, 100 );
+    let pointLightHelper3 = new THREE.PointLightHelper( light3, 100 );
+    scene.add(pointLightHelper);
     scene.add(pointLightHelper1);
-   scene.add(pointLightHelper2);
+    scene.add(pointLightHelper2);
     scene.add(pointLightHelper3);*/
-/*const color = 0xFFFFFF;
-    const intensity = 1;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(100, -100, 100);
-    light.target.position.set(-5, 0, 0);
-    scene.add(light);
-    scene.add(light.target);*/
-    /*var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-directionalLight.position.set( 0, -1000, 200 );
-scene.add( directionalLight );*/
-scene.add(light);
-scene.add(light1);
-scene.add(light2);
-scene.add(light3);
+scene.add(light,light1,light2,light3);
 
-// вращение мышью
+// вращение мышью и ограничения вращения
     let controls = new THREE.OrbitControls(camera, canvas);
     controls.minAzimuthAngle = -Math.PI/10.0;
     controls.maxAzimuthAngle = Math.PI/10.0;
@@ -136,45 +115,41 @@ scene.add(light3);
 
    // установка шариков
  async function onDocumentMouseDown () {
-   var projector = new THREE.Projector();
-   var vector = new THREE.Vector3(
+   let projector = new THREE.Projector();
+   let vector = new THREE.Vector3(
         ( event.clientX / width ) * 2 - 1,
       - ( event.clientY / height ) * 2 + 1,
         1);
 
     projector.unprojectVector( vector, camera );
-    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    var intersects = raycaster.intersectObjects(objects);
+    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    let intersects = raycaster.intersectObjects(objects);
     let selectedObject;
     if (intersects.length > 0) {
     /*selectedObject = scene.getObjectByName(intersects[0].object.name);*/
 
     if (intersects[0].object.name === "Random") {
     for ( let i=25;i>0;i=i-3) {
-    intersects[0].object.position.y = intersects[0].object.position.y -i;
-    intersects[0].object.position.z = intersects[0].object.position.z -i;
-    await sleep(10)
-    intersects[0].object.position.y = intersects[0].object.position.y +i;
-    intersects[0].object.position.z = intersects[0].object.position.z +i;
+    await button_click(intersects,i);
     }
-    /*button_Random ();*/
+    button_Random ();
         } else if (intersects[0].object.name === "Start game") {
     for ( let i=25;i>0;i=i-3) {
-    intersects[0].object.position.y = intersects[0].object.position.y -i;
-    intersects[0].object.position.z = intersects[0].object.position.z -i;
-    await sleep(10)
-    intersects[0].object.position.y = intersects[0].object.position.y +i;
-    intersects[0].object.position.z = intersects[0].object.position.z +i;
+    await button_click(intersects,i);
     }
 
 
     } else if (intersects[0].object.name === "Clear") {
     for ( let i=25;i>0;i=i-3) {
-    intersects[0].object.position.y = intersects[0].object.position.y -i;
-    intersects[0].object.position.z = intersects[0].object.position.z -i;
-    await sleep(10)
-    intersects[0].object.position.y = intersects[0].object.position.y +i;
-    intersects[0].object.position.z = intersects[0].object.position.z +i;
+    await button_click(intersects,i);
+    }
+        } else if (intersects[0].object.name === "butt4") {
+    for ( let i=20;i>0;i=i-3) {
+    await button_click(intersects,i);
+    }
+        } else if (intersects[0].object.name === "butt5") {
+    for ( let i=20;i>0;i=i-3) {
+    await button_click(intersects,i);
     }
         } else
     for(let i=0; i<size_grid; i++){
@@ -241,8 +216,8 @@ scene.add(light3);
 // функция массива шариков
 function ballsView () {
 objects = [];
-for(var i=0; i<size_grid; i++){
-    for(var j=0; j<size_grid; j++){
+for(let i=0; i<size_grid; i++){
+    for(let j=0; j<size_grid; j++){
 
         if ( matrix_balls[i][j].visible_balls !== false) {
     let mesh = new THREE.Mesh (ball, material_ball);
@@ -267,12 +242,12 @@ for(var i=0; i<size_grid; i++){
 
 // функция генерации сетки
 function create_grid () {
-  for(var i=0; i<=size_grid; i++){
+  for(let i=0; i<=size_grid; i++){
   let mesh_lines_y = new THREE.Mesh (geometry_lines_y, material_lines);
   scene.add (mesh_lines_y);
   mesh_lines_y.position.x = i*height/size_grid-height/2;
   mesh_lines_y.position.z = 1;
-    for(var j=0; j<=size_grid; j++){
+    for(let j=0; j<=size_grid; j++){
     let mesh_lines_x = new THREE.Mesh (geometry_lines_x, material_lines);
     scene.add (mesh_lines_x);
     mesh_lines_x.position.y = i*height/size_grid-height/2;
@@ -292,7 +267,7 @@ function board () {
 
 // функция отображения названия игры
 function text_game () {
-let text_geometry = new create_text_geometry ("GAME LIFE",font,100,20,12,true,20,5,8 );
+let text_geometry = new create_text_geometry ("GAME LIFE",font,100,20,12,true,10,5,5 );
 let mesh_text = new THREE.Mesh (text_geometry,material_text);
 mesh_text.position.x = -350;
 mesh_text.position.y =  200;
@@ -303,7 +278,7 @@ scene.add (mesh_text);
 // функция отображения кнопки
 function buttons (text_button,x,y,z,rotationX,rotationY,rotationZ) {
 let mesh_text = new THREE.Mesh (
-create_text_geometry (text_button,font,80,20,12,true,15,5,5 ),
+create_text_geometry (text_button,font,80,20,12,true,10,5,5 ),
 material_text);
 mesh_text.position.x = x;
 mesh_text.position.y =  y;
@@ -344,8 +319,6 @@ mesh.rotation.z += 0.001;*/
 loop (); // вызов созданной сцены
 
 // загрузим шрифт
-
-
 function loadFont(url) {
       return new Promise((resolve, reject) => {
         loader.load(url, resolve, undefined, reject);
@@ -354,29 +327,31 @@ function loadFont(url) {
 
 // генерация нового поля с шариками по крику кнопки "Random"
 function button_Random () {
+
 objects = [];
 matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
-matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
-for(var i=0; i<size_grid; i++){
-    for(var j=0; j<size_grid; j++){
+matrix_balls = matrixArray_ball(size_grid,size_grid,width,height);// генерируем новую матрицу balls
+console.log (scene);
+for(let i=0; i<size_grid; i++){
+    for(let j=0; j<size_grid; j++){
 
         if ( matrix_balls[i][j].visible_balls !== false) {
-    console.log (scene);
+
 
 
         } else {
-        console.log (scene);
+
 
         }
     }
-  } return scene;
+  }
 }
 // кнопка старт игры
 function button_start () {
 
 }
-// кнопка старт игры
-function button_start () {
+// кнопка очистка поля
+function button_clear () {
 
 }
 // загружаем фон (бек)
@@ -416,5 +391,12 @@ for(let i=0; i<size_grid; i++){
 function cameraCenterPosition () {
 controls.reset();
 }
-
+async function button_click(intersects,i) {
+    intersects[0].object.position.y = intersects[0].object.position.y -i;
+    intersects[0].object.position.z = intersects[0].object.position.z -i;
+    await sleep(10)
+    intersects[0].object.position.y = intersects[0].object.position.y +i;
+    intersects[0].object.position.z = intersects[0].object.position.z +i;
+    return intersects;
+}
 }
