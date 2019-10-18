@@ -142,7 +142,10 @@ scene.add(light,light1,light2,light3);
     } else if (intersects[0].object.name === "Clear") { // отработка клика по кнопке Clear
     for ( let i=25;i>0;i=i-3) {
     await button_click(intersects,i);
+
+    console.log (scene.children);
     }
+    button_clear ();
         } else if (intersects[0].object.name === "butt4") {// отработка клика по кнопке butt4
     for ( let i=20;i>0;i=i-3) {
     await button_click(intersects,i);
@@ -343,8 +346,6 @@ for(let i=0; i<size_grid; i++){
                 } else {
                 scene.children[n].material = material_ball;
                 }
-            /*scene.children[n].material = material_ball_transparence;*/
-
             }
             }
 
@@ -366,7 +367,18 @@ function button_start () {
 }
 // кнопка очистка поля
 function button_clear () {
+for(let i=0; i<size_grid; i++){
+    for(let j=0; j<size_grid; j++){
+            name = "i-"+i+" j-"+j;
+            for  (let n=0;n<scene.children.length; n++) {
+            if (scene.children[n].name === name) {
+                scene.children[n].material = material_ball_transparence;
 
+            }
+            }
+
+    }
+  }
 }
 // загружаем фон (бек)
 function initWorld() {
