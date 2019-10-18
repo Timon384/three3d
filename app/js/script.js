@@ -89,21 +89,21 @@ function matrixArray_ball(rows,columns,height,height){
     scene.add(helper);*/
 
     let light = new THREE.PointLight( 0xFFFFFF, 1, 1000 );
-    let light1 = new THREE.PointLight( 0xFFFFFF, 1.5, 1000 );
+    let light1 = new THREE.PointLight( 0xFFFFFF, 2.0, 1000 );
     let light2 = new THREE.PointLight( 0xFFFFFF, 2, 1000 );
     let light3 = new THREE.PointLight( 0xFFFFFF, 2, 1000 );
 
-    light.position.set( 800, -250, 450 );
-    light1.position.set( 100, -150, 350 );
+    light.position.set( 800, -350, 450 );
+    light1.position.set( -100, -100, 350 );
     light2.position.set( 200, -550, -50 );
-    light3.position.set( 950, -450, -50 );
-    /*var pointLightHelper = new THREE.PointLightHelper( light, 100 );
+    light3.position.set( 1100, -450, -50 );
+    var pointLightHelper = new THREE.PointLightHelper( light, 100 );
     var pointLightHelper1 = new THREE.PointLightHelper( light1, 100 );
     var pointLightHelper2 = new THREE.PointLightHelper( light2, 100 );
     var pointLightHelper3 = new THREE.PointLightHelper( light3, 100 );
-    scene.add(pointLightHelper);
+    /*scene.add(pointLightHelper);
     scene.add(pointLightHelper1);
-    scene.add(pointLightHelper2);
+   scene.add(pointLightHelper2);
     scene.add(pointLightHelper3);*/
 /*const color = 0xFFFFFF;
     const intensity = 1;
