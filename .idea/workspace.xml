@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c2f60abf-4f68-4d86-8a66-5904cc79a22a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/images/bacillus_free.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/images/matcap-porcelain-white.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,10 +17,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="244" selection-start-line="244" selection-end-line="244" />
+            <state relative-caret-position="289">
+              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
               <folding>
-                <element signature="e#0#15155#0" />
                 <element signature="e#0#15155#0" />
                 <element signature="e#0#15155#0" />
               </folding>
@@ -30,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+            <state relative-caret-position="68">
+              <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -47,8 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>materia</find>
-      <find>mater</find>
       <find>butt</find>
       <find>position.set</find>
       <find>materi</find>
@@ -77,6 +75,8 @@
       <find>start</find>
       <find>size</find>
       <find>board</find>
+      <find>Projecto</find>
+      <find>track</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,6 +122,13 @@
               <item name="test3drender" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
+              <item name="test3drender" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="controls" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
@@ -203,8 +210,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31568363" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31568363" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -215,7 +223,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4872654" visible="true" weight="0.36350778" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4872654" visible="true" weight="0.36350778" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5127346" side_tool="true" weight="0.36350778" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32956153" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -227,9 +235,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/static/images/amoeba_texture.jpg" />
-    <entry file="file://$PROJECT_DIR$/app/js/controls/TrackballControls.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/milkyway.by/milkyway.by/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18834" />
@@ -266,19 +271,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/images/stone.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/images/matcap-porcelain-white.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/layout.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        <state relative-caret-position="68">
+          <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/js/controls/TrackballControls.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="244" selection-start-line="244" selection-end-line="244" />
+        <state relative-caret-position="289">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
           <folding>
-            <element signature="e#0#15155#0" />
             <element signature="e#0#15155#0" />
             <element signature="e#0#15155#0" />
           </folding>

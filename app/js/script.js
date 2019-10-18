@@ -13,9 +13,7 @@ window.onload =  async function () {
 
     let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 
-    let OBJECT;
     let LOADING_MANAGER = new THREE.LoadingManager();
-    let OBJ_LOADER = new THREE.OBJLoader(LOADING_MANAGER);
     let IMAGE_LOADER = new THREE.ImageLoader(LOADING_MANAGER);
 
 // функция создания новой матрицы
