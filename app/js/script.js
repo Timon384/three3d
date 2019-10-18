@@ -12,7 +12,7 @@ window.onload =  async function () {
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
 
     let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
-    console.log (matrix_balls);
+
     let OBJECT;
     let LOADING_MANAGER = new THREE.LoadingManager();
     let OBJ_LOADER = new THREE.OBJLoader(LOADING_MANAGER);
@@ -103,8 +103,8 @@ scene.add(light,light1,light2,light3);
     let controls = new THREE.OrbitControls(camera, canvas);
     controls.minAzimuthAngle = -Math.PI/10.0;
     controls.maxAzimuthAngle = Math.PI/10.0;
-    controls.minPolarAngle = Math.PI/1.3;
-    controls.maxPolarAngle = Math.PI/1.0;
+    controls.minPolarAngle = Math.PI/1.4;
+    controls.maxPolarAngle = Math.PI/1.1;
     controls.maxDistance = 2500;
     controls.enableDamping = 0.2;
     controls.rotateSpeed = 5;
@@ -137,13 +137,11 @@ scene.add(light,light1,light2,light3);
     for ( let i=25;i>0;i=i-3) {
     await button_click(intersects,i);
     }
-
+    button_start ();
 
     } else if (intersects[0].object.name === "Clear") { // отработка клика по кнопке Clear
     for ( let i=25;i>0;i=i-3) {
     await button_click(intersects,i);
-
-    console.log (scene.children);
     }
     button_clear ();
         } else if (intersects[0].object.name === "butt4") {// отработка клика по кнопке butt4
@@ -215,6 +213,22 @@ scene.add(light,light1,light2,light3);
     let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x11be00});
     let material_cube = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 
+// загружаем фон (бек)
+function background() {
+    const sphere = new THREE.SphereGeometry(2000, 128, 128);
+    sphere.scale(-1, 1, 1);
+    const texture = new THREE.Texture();
+    const material = new THREE.MeshBasicMaterial({
+        map: texture
+    });
+    IMAGE_LOADER.load('./static/images/background_5.jpg', (image) => {
+        texture.image = image;
+        texture.needsUpdate = true;
+    });
+    mesh_arround = new THREE.Mesh(sphere, material);
+    mesh_arround.rotation.x = 1.57;
+    scene.add(mesh_arround);
+}
 
 // функция массива шариков
 function ballsView () {
@@ -298,9 +312,10 @@ ballsView ();
 create_grid ();
 board ();
 text_game();
-initWorld();
+background();
+loop (); // вызов созданной сцены
 
-/*loadModel();*/
+// координаты кнопок
 buttons("Random", 500, 000, 150, 1.59,-0.19,0);
 buttons("Start game", 500, 000, 300,1.59,-0.19,0);
 buttons("Clear", 500, 000, 00,1.59,-0.19,0);
@@ -319,7 +334,7 @@ mesh.rotation.z += 0.001;*/
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
 }
 
-loop (); // вызов созданной сцены
+
 
 // загрузим шрифт
 function loadFont(url) {
@@ -353,17 +368,26 @@ for(let i=0; i<size_grid; i++){
   }
 }
 
-/*matrix_balls[i][j].visible_balls = false;
-            selectedObject = scene.getObjectByName(intersects[0].object.name);
-            selectedObject.material = material_ball_transparence;
-            } else {matrix_balls[i][j].visible_balls = true;
-            *//*console.log (intersects[0].object.name);*//*
-            selectedObject = scene.getObjectByName(intersects[0].object.name);
-           selectedObject.material = material_ball;*/
-
 // кнопка старт игры
 function button_start () {
+let name;
+  for(let i=0; i<size_grid; i++){
+    for(let j=0; j<size_grid; j++){
+    name = "i-"+i+" j-"+j;
+        for  (let n=0;n<scene.children.length; n++) {
+            if (scene.children[n].name === name) {
+                if (scene.children[n].material === material_ball) {
+                matrix[i][j] = 1;
+                /*scene.children[n].material = material_ball_transparence;*/
+                } else {
+                matrix[i][j] = 0;
+                }
+            }
+            }
 
+    }
+  }
+console.log (matrix);
 }
 // кнопка очистка поля
 function button_clear () {
@@ -373,28 +397,11 @@ for(let i=0; i<size_grid; i++){
             for  (let n=0;n<scene.children.length; n++) {
             if (scene.children[n].name === name) {
                 scene.children[n].material = material_ball_transparence;
-
             }
-            }
+         }
 
     }
   }
-}
-// загружаем фон (бек)
-function initWorld() {
-    const sphere = new THREE.SphereGeometry(2000, 128, 128);
-    sphere.scale(-1, 1, 1);
-    const texture = new THREE.Texture();
-    const material = new THREE.MeshBasicMaterial({
-        map: texture
-    });
-    IMAGE_LOADER.load('./static/images/background_5.jpg', (image) => {
-        texture.image = image;
-        texture.needsUpdate = true;
-    });
-    mesh_arround = new THREE.Mesh(sphere, material);
-    mesh_arround.rotation.x = 1.57;
-    scene.add(mesh_arround);
 }
 
 
@@ -403,20 +410,11 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function all_balls_visible_false () {
-for(let i=0; i<size_grid; i++){
-    for(let j=0; j<size_grid; j++){
-    matrix_balls[i][j].visible_balls =false;
-
-    }
-  }
-  console.log (matrix_balls)
-}
-
 // функция центрирование камеры по двойному клику
 function cameraCenterPosition () {
 controls.reset();
 }
+// отработка движения при клике
 async function button_click(intersects,i) {
     intersects[0].object.position.y = intersects[0].object.position.y -i;
     intersects[0].object.position.z = intersects[0].object.position.z -i;
