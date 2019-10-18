@@ -18,7 +18,6 @@ window.onload =  async function () {
     let OBJ_LOADER = new THREE.OBJLoader(LOADING_MANAGER);
     let IMAGE_LOADER = new THREE.ImageLoader(LOADING_MANAGER);
 
-
 // функция создания новой матрицы
 function matrixArray(rows,columns){
   let arr = new Array();
@@ -75,6 +74,7 @@ function matrixArray_ball(rows,columns,height,height){
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 700);
+    /*camera.rotation.set (100,0,0);*/
 
 
 // создание света
@@ -264,6 +264,7 @@ function create_grid () {
   scene.add (mesh_lines_y);
   mesh_lines_y.position.x = i*height/size_grid-height/2;
   mesh_lines_y.position.z = 1;
+
     for(let j=0; j<=size_grid; j++){
     let mesh_lines_x = new THREE.Mesh (geometry_lines_x, material_lines);
     scene.add (mesh_lines_x);
@@ -279,6 +280,7 @@ function board () {
     mesh.position.x = 0;
     mesh.position.y = 0;
     mesh.position.z = 0;
+
     scene.add (mesh);
 }
 
