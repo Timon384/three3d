@@ -16,11 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="336" lean-forward="true" selection-start-line="336" selection-end-line="336" />
-              <folding>
-                <element signature="e#0#14824#0" />
-              </folding>
+            <state relative-caret-position="139">
+              <caret line="338" column="57" selection-start-line="338" selection-start-column="57" selection-end-line="338" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -28,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+            <state relative-caret-position="68">
+              <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -45,17 +42,14 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rando</find>
       <find>Rando</find>
       <find>console.log</find>
-      <find>matrix_balls</find>
       <find>ballsView ()</find>
       <find>i&lt;size_grid</find>
       <find>event</find>
       <find>eventL</find>
       <find>camera.position</find>
       <find>position</find>
-      <find>random</find>
       <find>initEventListeners();</find>
       <find>initEventListeners()</find>
       <find>materia</find>
@@ -75,6 +69,9 @@
       <find>camera</find>
       <find>іеф</find>
       <find>console</find>
+      <find>var</find>
+      <find>random</find>
+      <find>matrix_balls</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,8 +198,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30764076" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3116622" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -213,8 +211,8 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4886059" visible="true" weight="0.36350778" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5113941" side_tool="true" visible="true" weight="0.36350778" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.48793566" visible="true" weight="0.36350778" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51206434" side_tool="true" visible="true" weight="0.36350778" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32956153" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -266,18 +264,15 @@
     <entry file="file://$PROJECT_DIR$/app/js/1.js" />
     <entry file="file://$PROJECT_DIR$/app/layout.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+        <state relative-caret-position="68">
+          <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="336" lean-forward="true" selection-start-line="336" selection-end-line="336" />
-          <folding>
-            <element signature="e#0#14824#0" />
-          </folding>
+        <state relative-caret-position="139">
+          <caret line="338" column="57" selection-start-line="338" selection-start-column="57" selection-end-line="338" selection-end-column="57" />
         </state>
       </provider>
     </entry>

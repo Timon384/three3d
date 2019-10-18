@@ -128,26 +128,26 @@ scene.add(light,light1,light2,light3);
     if (intersects.length > 0) {
     /*selectedObject = scene.getObjectByName(intersects[0].object.name);*/
 
-    if (intersects[0].object.name === "Random") {
+    if (intersects[0].object.name === "Random") {  // отработка клика по кнопке Random
     for ( let i=25;i>0;i=i-3) {
     await button_click(intersects,i);
     }
     button_Random ();
-        } else if (intersects[0].object.name === "Start game") {
+        } else if (intersects[0].object.name === "Start game") { // отработка клика по кнопке Start game
     for ( let i=25;i>0;i=i-3) {
     await button_click(intersects,i);
     }
 
 
-    } else if (intersects[0].object.name === "Clear") {
+    } else if (intersects[0].object.name === "Clear") { // отработка клика по кнопке Clear
     for ( let i=25;i>0;i=i-3) {
     await button_click(intersects,i);
     }
-        } else if (intersects[0].object.name === "butt4") {
+        } else if (intersects[0].object.name === "butt4") {// отработка клика по кнопке butt4
     for ( let i=20;i>0;i=i-3) {
     await button_click(intersects,i);
     }
-        } else if (intersects[0].object.name === "butt5") {
+        } else if (intersects[0].object.name === "butt5") {// отработка клика по кнопке butt5
     for ( let i=20;i>0;i=i-3) {
     await button_click(intersects,i);
     }
@@ -157,12 +157,12 @@ scene.add(light,light1,light2,light3);
             if ( matrix_balls[i][j].positionX === intersects[0].object.position.x && matrix_balls[i][j].positionY ===
             intersects[0].object.position.y && matrix_balls[i][j].positionZ === intersects[0].object.position.z) {
             if (matrix_balls[i][j].visible_balls === true) {
-            /*console.log (intersects[0].object.name);*/
+            console.log (intersects[0].object.name);
             matrix_balls[i][j].visible_balls = false;
             selectedObject = scene.getObjectByName(intersects[0].object.name);
             selectedObject.material = material_ball_transparence;
             } else {matrix_balls[i][j].visible_balls = true;
-            /*console.log (intersects[0].object.name);*/
+            console.log (intersects[0].object.name);
             selectedObject = scene.getObjectByName(intersects[0].object.name);
            selectedObject.material = material_ball;
 
@@ -327,25 +327,39 @@ function loadFont(url) {
 
 // генерация нового поля с шариками по крику кнопки "Random"
 function button_Random () {
-
-objects = [];
+let name;
 matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
 matrix_balls = matrixArray_ball(size_grid,size_grid,width,height);// генерируем новую матрицу balls
-console.log (scene);
+
 for(let i=0; i<size_grid; i++){
     for(let j=0; j<size_grid; j++){
 
-        if ( matrix_balls[i][j].visible_balls !== false) {
+            name = "i-"+i+" j-"+j;
 
+            for  (let n=0;n<scene.children.length; n++) {
+            if (scene.children[n].name === name) {
+                if (matrix_balls[i][j].visible_balls === false) {
+                scene.children[n].material = material_ball_transparence;
+                } else {
+                scene.children[n].material = material_ball;
+                }
+            /*scene.children[n].material = material_ball_transparence;*/
 
+            }
+            }
 
-        } else {
-
-
-        }
     }
   }
 }
+
+/*matrix_balls[i][j].visible_balls = false;
+            selectedObject = scene.getObjectByName(intersects[0].object.name);
+            selectedObject.material = material_ball_transparence;
+            } else {matrix_balls[i][j].visible_balls = true;
+            *//*console.log (intersects[0].object.name);*//*
+            selectedObject = scene.getObjectByName(intersects[0].object.name);
+           selectedObject.material = material_ball;*/
+
 // кнопка старт игры
 function button_start () {
 
