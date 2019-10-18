@@ -12,7 +12,7 @@ window.onload =  async function () {
     const font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
 
-    var matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
+    let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
     console.log (matrix_balls);
     let OBJECT;
     let LOADING_MANAGER = new THREE.LoadingManager();
@@ -76,19 +76,35 @@ function matrixArray_ball(rows,columns,height,height){
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 700);
-    camera.lookAt( scene.position );
+    console.log (camera.rotation)
+
 // создание света
-    var light = new THREE.AmbientLight (0xFFFFFF); // добавляем свет в сцену
+    /*var light = new THREE.AmbientLight (0xFFFFFF,1.0); // добавляем свет в сцену*/
     /*let skyColor =0xB1E1FF;
     let groundColor = 0xB27120;
     let intensity = 1;
-    var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);*/
+    var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    var helper = new THREE.HemisphereLightHelper( light, 1000 );
+    light.position.set(200, -300, 000);
+    scene.add(helper);*/
 
+    let light = new THREE.PointLight( 0xFFFFFF, 1, 1000 );
+    let light1 = new THREE.PointLight( 0xFFFFFF, 1.5, 1000 );
+    let light2 = new THREE.PointLight( 0xFFFFFF, 2, 1000 );
+    let light3 = new THREE.PointLight( 0xFFFFFF, 2, 1000 );
 
-    /*var light = new THREE.PointLight( 0xFFFFFF, 1, 1000 );
-    light.position.set( 150, -150, 150 );
-
-
+    light.position.set( 800, -250, 450 );
+    light1.position.set( 100, -150, 350 );
+    light2.position.set( 200, -550, -50 );
+    light3.position.set( 950, -450, -50 );
+    /*var pointLightHelper = new THREE.PointLightHelper( light, 100 );
+    var pointLightHelper1 = new THREE.PointLightHelper( light1, 100 );
+    var pointLightHelper2 = new THREE.PointLightHelper( light2, 100 );
+    var pointLightHelper3 = new THREE.PointLightHelper( light3, 100 );
+    scene.add(pointLightHelper);
+    scene.add(pointLightHelper1);
+    scene.add(pointLightHelper2);
+    scene.add(pointLightHelper3);*/
 /*const color = 0xFFFFFF;
     const intensity = 1;
     const light = new THREE.DirectionalLight(color, intensity);
@@ -96,7 +112,13 @@ function matrixArray_ball(rows,columns,height,height){
     light.target.position.set(-5, 0, 0);
     scene.add(light);
     scene.add(light.target);*/
+    /*var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+directionalLight.position.set( 0, -1000, 200 );
+scene.add( directionalLight );*/
 scene.add(light);
+scene.add(light1);
+scene.add(light2);
+scene.add(light3);
 
 // вращение мышью
     let controls = new THREE.OrbitControls(camera, canvas);
@@ -107,6 +129,7 @@ scene.add(light);
     controls.maxDistance = 2500;
     controls.enableDamping = 0.2;
     controls.rotateSpeed = 5;
+    controls.saveState();
 
 
 
@@ -208,9 +231,10 @@ scene.add(light);
     let basic_material = new THREE.MeshBasicMaterial( {color: 0x000000} ); // создание базового материала
     let material_lines = new THREE.MeshLambertMaterial( {map: texture_line} ); // создание материала
     let material_ball = new THREE.MeshLambertMaterial( {map: texture_ball} ); // создание материала
-    let material_ball_transparence = new THREE.MeshPhysicalMaterial( {map: texture_ball, transparent: true, transparency: 1} ); // создание прозрачного материала
+    let material_ball_transparence = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0} ); // создание прозрачного материала
+    material_ball_transparence.opacity = 0;
     let material_board = new THREE.MeshLambertMaterial( {map: texture_board} ); // создание материала
-    let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x15ee00});
+    let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x11be00});
     let material_cube = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 
 
@@ -268,22 +292,18 @@ function board () {
 
 // функция отображения названия игры
 function text_game () {
-let cube_geometry = new THREE.BoxBufferGeometry( 100, 100, 100 )
-let mesh_cube = new THREE.Mesh (cube_geometry,material_cube);
-let text_geometry = new create_text_geometry ("GAME LIFE",font,100,20,12,true,0.15,0.3,5 );
+let text_geometry = new create_text_geometry ("GAME LIFE",font,100,20,12,true,20,5,8 );
 let mesh_text = new THREE.Mesh (text_geometry,material_text);
 mesh_text.position.x = -350;
 mesh_text.position.y =  200;
 mesh_text.position.z = 300;
 mesh_text.rotation.x = 1.59;
 scene.add (mesh_text);
-scene.add (mesh_cube);
-
 }
 // функция отображения кнопки
 function buttons (text_button,x,y,z,rotationX,rotationY,rotationZ) {
 let mesh_text = new THREE.Mesh (
-create_text_geometry (text_button,font,80,20,12,true,0.15,0.3,5 ),
+create_text_geometry (text_button,font,80,20,12,true,15,5,5 ),
 material_text);
 mesh_text.position.x = x;
 mesh_text.position.y =  y;
@@ -363,14 +383,10 @@ function button_start () {
 function initWorld() {
     const sphere = new THREE.SphereGeometry(2000, 128, 128);
     sphere.scale(-1, 1, 1);
-    /*sphere.rotation.x =1.57;*/
-
     const texture = new THREE.Texture();
-
     const material = new THREE.MeshBasicMaterial({
         map: texture
     });
-
     IMAGE_LOADER.load('./static/images/background_5.jpg', (image) => {
         texture.image = image;
         texture.needsUpdate = true;
@@ -379,39 +395,13 @@ function initWorld() {
     mesh_arround.rotation.x = 1.57;
     scene.add(mesh_arround);
 }
-// загружаем 3D модель
-function loadModel() {
-    OBJ_LOADER.load('./static/images/bacillus_free.obj', (object) => {
-        object.scale.x = 0.3;
-        object.scale.y = 0.3;
-        object.scale.z = 0.3;
-        object.rotation.x = -Math.PI / 2;
-        object.position.x = 500;
-        object.position.y = -500;
-        object.position.z = 200;
-
-        OBJECT = object;
-        scene.add(OBJECT);
-    });
-}
-//стандартный обработчик события изменения размера окна браузера:
-/*function initEventListeners() {
-    window.addEventListener('resize', onWindowResize);
-
-    onWindowResize();
-}
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}*/
 
 
+// функция паузы
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 function all_balls_visible_false () {
 for(let i=0; i<size_grid; i++){
     for(let j=0; j<size_grid; j++){
@@ -424,7 +414,7 @@ for(let i=0; i<size_grid; i++){
 
 // функция центрирование камеры по двойному клику
 function cameraCenterPosition () {
-camera.position.set (0, -1100, 700);
+controls.reset();
 }
 
 }
