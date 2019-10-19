@@ -8,13 +8,15 @@ window.onload =  async function () {
     canvas.setAttribute (`width`, width);
     canvas.setAttribute (`height`, height);
     let size_grid = 20; // задаем размеры сетки
-    const font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
+    let font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
 
     let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 
     let LOADING_MANAGER = new THREE.LoadingManager();
     let IMAGE_LOADER = new THREE.ImageLoader(LOADING_MANAGER);
+    let listener_sound = new THREE.AudioListener();
+
 
 // функция создания новой матрицы
 function matrixArray(rows,columns){
@@ -72,8 +74,25 @@ function matrixArray_ball(rows,columns,height,height){
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
     camera.position.set (0, -1100, 700);
+    camera.name = camera;
     /*camera.rotation.set (100,0,0);*/
 
+// загрузка в камеру звука
+    camera.add( listener_sound );
+    let sound_click = new THREE.Audio( listener_sound );
+    let audioLoader = new THREE.AudioLoader();
+    audioLoader.load( 'static/sounds/Click2.wav', function( buffer ) {
+	sound_click.setBuffer( buffer );
+	sound_click.setLoop(false);
+	sound_click.setVolume(0.5);
+});
+let sound_space = new THREE.Audio( listener_sound );
+audioLoader = new THREE.AudioLoader();
+    audioLoader.load( 'static/sounds/spaceship.wav', function( buffer ) {
+	sound_space.setBuffer( buffer );
+	sound_space.setLoop(false);
+	sound_space.setVolume(0.5);
+});
 
 // создание света
     /*let light = new THREE.AmbientLight (0xFFFFFF,1.0);*/
@@ -111,14 +130,16 @@ scene.add(light,light1,light2,light3);
 
 
 
-   // установка шариков
+
+
+
+   // установка\удаление шариков  отработка кнопок по 1 клику
  async function onDocumentMouseDown () {
    let projector = new THREE.Projector();
    let vector = new THREE.Vector3(
         ( event.clientX / width ) * 2 - 1,
       - ( event.clientY / height ) * 2 + 1,
         1);
-
     projector.unprojectVector( vector, camera );
     let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     let intersects = raycaster.intersectObjects(objects);
@@ -143,13 +164,17 @@ scene.add(light,light1,light2,light3);
     }
     button_clear ();
         } else if (intersects[0].object.name === "butt4") {// отработка клика по кнопке butt4
+    butt4 ();
     for ( let i=20;i>0;i=i-3) {
     await button_click(intersects,i);
     }
+
+
         } else if (intersects[0].object.name === "butt5") {// отработка клика по кнопке butt5
     for ( let i=20;i>0;i=i-3) {
     await button_click(intersects,i);
     }
+    butt5 ();
         } else
     for(let i=0; i<size_grid; i++){
         for(let j=0; j<size_grid; j++){
@@ -208,8 +233,8 @@ scene.add(light,light1,light2,light3);
     let material_ball_transparence = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0} ); // создание прозрачного материала
     material_ball_transparence.opacity = 0;
     let material_board = new THREE.MeshLambertMaterial( {map: texture_board} ); // создание материала
-    let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x11be00});
-    let material_cube = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x11be00}); // 120319 510d6e 11be00
+
 
 // загружаем фон (бек)
 function background() {
@@ -278,7 +303,7 @@ function board () {
     mesh.position.x = 0;
     mesh.position.y = 0;
     mesh.position.z = 0;
-
+    mesh.name = "board"
     scene.add (mesh);
 }
 
@@ -289,8 +314,10 @@ let mesh_text = new THREE.Mesh (text_geometry,material_text);
 mesh_text.position.x = -350;
 mesh_text.position.y =  200;
 mesh_text.position.z = 300;
-mesh_text.rotation.x = 1.59;
+mesh_text.rotation.x = 1.59; /*controls.object.rotation.x;*/
+mesh_text.name = "GAME LIFE";
 scene.add (mesh_text);
+
 }
 // функция отображения кнопки
 function buttons (text_button,x,y,z,rotationX,rotationY,rotationZ) {
@@ -313,8 +340,9 @@ create_grid ();
 board ();
 text_game();
 background();
-loop (); // вызов созданной сцены
 
+loop (); // вызов созданной сцены
+await sound_space.play(sleep(1000));
 // координаты кнопок
 buttons("Random", 500, 000, 150, 1.59,-0.19,0);
 buttons("Start game", 500, 000, 300,1.59,-0.19,0);
@@ -324,14 +352,13 @@ buttons("butt5", 100, -400, -100,1.4,0.0,0);
 
 // создаем движение
 function loop() {
-/*mesh.position.z = 50;
-mesh.rotation.z += 0.001;*/
 /*initEventListeners();*/
     controls.update();
     renderer.render (scene, camera); // включаем в рендеринг сцену и камеру
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false ); // отслеживание наведения мышки на объект
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
+
 }
 
 
@@ -345,6 +372,7 @@ function loadFont(url) {
 
 // генерация нового поля с шариками по крику кнопки "Random"
 function button_Random () {
+button_sound ();
 let name;
 matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
 matrix_balls = matrixArray_ball(size_grid,size_grid,width,height);// генерируем новую матрицу balls
@@ -370,6 +398,7 @@ for(let i=0; i<size_grid; i++){
 
 // кнопка старт игры
 function button_start () {
+button_sound ();
 let name;
   for(let i=0; i<size_grid; i++){
     for(let j=0; j<size_grid; j++){
@@ -391,6 +420,7 @@ console.log (matrix);
 }
 // кнопка очистка поля
 function button_clear () {
+button_sound ();
 for(let i=0; i<size_grid; i++){
     for(let j=0; j<size_grid; j++){
             name = "i-"+i+" j-"+j;
@@ -403,7 +433,16 @@ for(let i=0; i<size_grid; i++){
     }
   }
 }
+// кнопка butt4
+function butt4 () {
+button_sound ();
 
+}
+// кнопка butt5
+function butt5 () {
+button_sound ();
+
+}
 
 // функция паузы
 function sleep(ms) {
@@ -423,4 +462,11 @@ async function button_click(intersects,i) {
     intersects[0].object.position.z = intersects[0].object.position.z +i;
     return intersects;
 }
+function button_sound () {
+	sound_click.play();
 }
+
+}
+
+/*
+scene.getObjectByName( "GAME LIFE" ).rotation.x = scene.getObjectByName( "GAME LIFE" ).rotation.x - controls.object.rotation.x;*/

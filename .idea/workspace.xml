@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2f60abf-4f68-4d86-8a66-5904cc79a22a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/static/sounds/Click2.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/sounds/Mouse-Click-02.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/sounds/spaceship.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/images/matcap-porcelain-white.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,12 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-              <folding>
-                <element signature="e#0#15155#0" />
-                <element signature="e#0#15155#0" />
-              </folding>
+            <state relative-caret-position="173">
+              <caret line="342" column="6" selection-start-line="342" selection-start-column="6" selection-end-line="342" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -30,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
+            <state relative-caret-position="187">
+              <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -47,26 +45,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>butt</find>
-      <find>position.set</find>
-      <find>materi</find>
-      <find>ligh</find>
-      <find>camera.po</find>
-      <find>lig</find>
-      <find>position.</find>
-      <find>create_text_geometry</find>
-      <find>rotatio</find>
-      <find>IMAGE_LOADER</find>
-      <find>rota</find>
-      <find>OBJECT</find>
-      <find>camera</find>
-      <find>іеф</find>
-      <find>var</find>
-      <find>matrix_balls</find>
-      <find>clear</find>
-      <find>button_clear</find>
       <find>console</find>
-      <find>contro</find>
       <find>random</find>
       <find>all_balls_visible_false</find>
       <find>ballsView ()</find>
@@ -74,9 +53,28 @@
       <find>matrix</find>
       <find>start</find>
       <find>size</find>
-      <find>board</find>
       <find>Projecto</find>
       <find>track</find>
+      <find>OBJECT</find>
+      <find>LOADING_MANAGER</find>
+      <find>IMAGE_LOADER</find>
+      <find>bttn4</find>
+      <find>controls.update</find>
+      <find>position</find>
+      <find>delta_rotation0</find>
+      <find>mesh</find>
+      <find>butt4</find>
+      <find>butn4</find>
+      <find>contro</find>
+      <find>controls</find>
+      <find>event</find>
+      <find>board</find>
+      <find>scene.add</find>
+      <find>camera</find>
+      <find>liste</find>
+      <find>butt4 ()</find>
+      <find>audioLoader</find>
+      <find>sound_space</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,7 +102,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -116,26 +113,6 @@
               <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
               <item name="test3drender" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
-              <item name="test3drender" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
-              <item name="test3drender" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="controls" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
-              <item name="test3drender" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="loaders" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
@@ -153,34 +130,42 @@
             <path>
               <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
               <item name="test3drender" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="sounds" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="test3drender" type="b2602c69:ProjectViewProjectNode" />
+              <item name="test3drender" type="462c0819:PsiDirectoryNode" />
               <item name="venv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/js/loaders" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/sounds" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Work\synergy\test3drender\app\js\loaders" />
-      <recent name="C:\Users\Work\synergy\test3drender\app\static\images" />
-      <recent name="C:\Users\Work\synergy\test3drender\app\js\controls\fonts" />
-      <recent name="C:\Users\Work\synergy\test3drender\app\js\renderers" />
-      <recent name="C:\Users\Work\synergy\test3drender\app\js\controls" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Work\synergy\test3drender\app\js" />
       <recent name="C:\Users\Work\synergy\test3drender\app" />
       <recent name="C:\Users\Work\synergy\test3drender\app\templates" />
       <recent name="C:\Users\Work\synergy\test3drender\app\three.js-master\build" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Work\synergy\test3drender\app\static\sounds" />
+      <recent name="C:\Users\Work\synergy\test3drender\app\js\loaders" />
+      <recent name="C:\Users\Work\synergy\test3drender\app\static\images" />
+      <recent name="C:\Users\Work\synergy\test3drender\app\js\controls\fonts" />
+      <recent name="C:\Users\Work\synergy\test3drender\app\js\renderers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -212,7 +197,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31568363" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3243968" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -223,8 +208,8 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4872654" visible="true" weight="0.36350778" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5127346" side_tool="true" weight="0.36350778" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48592493" visible="true" weight="0.36350778" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51407504" side_tool="true" weight="0.36350778" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32956153" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -264,37 +249,23 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/js/1.js" />
-    <entry file="file://$PROJECT_DIR$/app/static/images/bacillus_free.obj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5379531">
-          <caret line="316443" column="58" lean-forward="true" selection-start-line="316443" selection-start-column="21" selection-end-line="316443" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/images/bacillus_free.obj" />
     <entry file="file://$PROJECT_DIR$/app/static/images/stone.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/images/matcap-porcelain-white.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/images/matcap-porcelain-white.jpg" />
+    <entry file="file://$PROJECT_DIR$/app/js/controls/TrackballControls.js" />
     <entry file="file://$PROJECT_DIR$/app/layout.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
+        <state relative-caret-position="187">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/js/controls/TrackballControls.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#15155#0" />
-            <element signature="e#0#15155#0" />
-          </folding>
+        <state relative-caret-position="173">
+          <caret line="342" column="6" selection-start-line="342" selection-start-column="6" selection-end-line="342" selection-end-column="6" />
         </state>
       </provider>
     </entry>
