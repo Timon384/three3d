@@ -85,9 +85,10 @@ function matrixArray_ball(rows,columns,height,height){
 	sound_click.setBuffer( buffer );
 	sound_click.setLoop(false);
 	sound_click.setVolume(0.5);
+
 });
 let sound_space = new THREE.Audio( listener_sound );
-audioLoader = new THREE.AudioLoader();
+/*audioLoader = new THREE.AudioLoader();*/
     audioLoader.load( 'static/sounds/spaceship.wav', function( buffer ) {
 	sound_space.setBuffer( buffer );
 	sound_space.setLoop(false);
@@ -128,13 +129,37 @@ scene.add(light,light1,light2,light3);
     controls.saveState();
 
 
+let selectedObject_opacity_05;
 
+ function mouseMove () {
+ let projector = new THREE.Projector();
+   let vector = new THREE.Vector3(
+        ( event.clientX / width ) * 2 - 1,
+      - ( event.clientY / height ) * 2 + 1,
+        1);
+    projector.unprojectVector( vector, camera );
+    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    let intersects = raycaster.intersectObjects(objects);
+    if (selectedObject_opacity_05 !== intersects[0]) {
+    console.log (selectedObject_opacity_05.object, intersects[0].object);
 
+    /*scene.getObjectByName (selectedObject_opacity_05.object.name).object = selectedObject_opacity_05.object;*/
+    }
 
+    if (intersects.length > 0) {
+    /*console.log (intersects[0].object.id);*/
+    /*scene.getObjectByName (intersects[0].object.name).material.opacity = 0.5;*/
+    selectedObject_opacity_05 = scene.getObjectByName(intersects[0].object.name);
+    intersects[0].object.material = material_ball_transparence_0_5;
+    /*console.log (intersects[0].object.material);*/
+
+    }
+ }
 
 
    // установка\удаление шариков  отработка кнопок по 1 клику
  async function onDocumentMouseDown () {
+
    let projector = new THREE.Projector();
    let vector = new THREE.Vector3(
         ( event.clientX / width ) * 2 - 1,
@@ -181,11 +206,13 @@ scene.add(light,light1,light2,light3);
             if ( matrix_balls[i][j].positionX === intersects[0].object.position.x && matrix_balls[i][j].positionY ===
             intersects[0].object.position.y && matrix_balls[i][j].positionZ === intersects[0].object.position.z) {
             if (matrix_balls[i][j].visible_balls === true) {
+            button_click;
             console.log (intersects[0].object.name);
             matrix_balls[i][j].visible_balls = false;
             selectedObject = scene.getObjectByName(intersects[0].object.name);
             selectedObject.material = material_ball_transparence;
             } else {matrix_balls[i][j].visible_balls = true;
+            button_click();
             console.log (intersects[0].object.name);
             selectedObject = scene.getObjectByName(intersects[0].object.name);
            selectedObject.material = material_ball;
@@ -232,6 +259,8 @@ scene.add(light,light1,light2,light3);
     let material_ball = new THREE.MeshLambertMaterial( {map: texture_ball} ); // создание материала
     let material_ball_transparence = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0} ); // создание прозрачного материала
     material_ball_transparence.opacity = 0;
+    let material_ball_transparence_0_5 = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0} ); // создание прозрачного материала
+    material_ball_transparence_0_5.opacity = 0.8;
     let material_board = new THREE.MeshLambertMaterial( {map: texture_board} ); // создание материала
     let material_text = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide, color: 0x11be00}); // 120319 510d6e 11be00
 
@@ -342,7 +371,6 @@ text_game();
 background();
 
 loop (); // вызов созданной сцены
-await sound_space.play(sleep(1000));
 // координаты кнопок
 buttons("Random", 500, 000, 150, 1.59,-0.19,0);
 buttons("Start game", 500, 000, 300,1.59,-0.19,0);
@@ -358,6 +386,7 @@ function loop() {
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false ); // отслеживание наведения мышки на объект
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
+    document.addEventListener ('mousemove', mouseMove,false);
 
 }
 
@@ -463,7 +492,8 @@ async function button_click(intersects,i) {
     return intersects;
 }
 function button_sound () {
-	sound_click.play();
+let sound = sound_click;
+	sound.play();
 }
 
 }
