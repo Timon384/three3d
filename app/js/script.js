@@ -1,3 +1,5 @@
+
+
 window.onload =  async function () {
 // задаем параметры окна (на всю страницу)
     let width = window.innerWidth;
@@ -16,7 +18,8 @@ window.onload =  async function () {
     let LOADING_MANAGER = new THREE.LoadingManager();
     let IMAGE_LOADER = new THREE.ImageLoader(LOADING_MANAGER);
     let listener_sound = new THREE.AudioListener();
-
+    let mouse = new THREE.Vector2(), INTERSECTED;
+    let  raycaster = new THREE.Raycaster();
 
 // функция создания новой матрицы
 function matrixArray(rows,columns){
@@ -129,47 +132,63 @@ scene.add(light,light1,light2,light3);
     controls.saveState();
 
 
-let selectedObject_opacity_05;
 
- function mouseMove () {
- let projector = new THREE.Projector();
+
+ /*function mouseMove (event) {
+     event.preventDefault();
+     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+     raycaster.setFromCamera( mouse, camera );
+     let intersects = raycaster.intersectObjects( scene.children );
+     if ( intersects.length > 0 ) {
+         if ( INTERSECTED != intersects[ 0 ].object) {
+
+             if ( INTERSECTED && intersects[0].object.material.opacity !== 1) INTERSECTED.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0});
+             INTERSECTED = intersects[ 0 ].object;
+
+             /!*INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();*!/
+             console.log ("INTERSECTED= ",INTERSECTED.material.opacity);
+             INTERSECTED.material = new THREE.MeshLambertMaterial( {map: texture_ball} );
+					}
+				} else {
+					if ( INTERSECTED ) INTERSECTED.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0} );
+					INTERSECTED = null;
+				}
+
+ /!*let projector = new THREE.Projector();
    let vector = new THREE.Vector3(
         ( event.clientX / width ) * 2 - 1,
       - ( event.clientY / height ) * 2 + 1,
         1);
+   mouse.x = ( event.clientX / width ) * 2 - 1 ;
+   mouse.y = - ( event.clientY / height ) * 2 + 1;
     projector.unprojectVector( vector, camera );
-    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    let intersects = raycaster.intersectObjects(objects);
-    if (selectedObject_opacity_05 !== intersects[0]) {
-    console.log (selectedObject_opacity_05.object, intersects[0].object);
-
-    /*scene.getObjectByName (selectedObject_opacity_05.object.name).object = selectedObject_opacity_05.object;*/
+    let raycaster = new THREE.Raycaster(camera.position, mouse);
+    let intersects = raycaster.intersectObjects(scene.children);
+    if (intersects.length > 0) {
+        if (INTERSECTED != intersects[0].object) {
+    console.log (INTERSECTED, intersects[0].object);
     }
 
-    if (intersects.length > 0) {
-    /*console.log (intersects[0].object.id);*/
-    /*scene.getObjectByName (intersects[0].object.name).material.opacity = 0.5;*/
     selectedObject_opacity_05 = scene.getObjectByName(intersects[0].object.name);
     intersects[0].object.material = material_ball_transparence_0_5;
-    /*console.log (intersects[0].object.material);*/
 
-    }
- }
+    }*!/
+ }*/
 
 
    // установка\удаление шариков  отработка кнопок по 1 клику
- async function onDocumentMouseDown () {
+ async function onDocumentMouseDown (event) {
 
-   let projector = new THREE.Projector();
-   let vector = new THREE.Vector3(
-        ( event.clientX / width ) * 2 - 1,
-      - ( event.clientY / height ) * 2 + 1,
-        1);
-    projector.unprojectVector( vector, camera );
-    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    let intersects = raycaster.intersectObjects(objects);
-    let selectedObject;
-    if (intersects.length > 0) {
+   event.preventDefault();
+     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+     raycaster.setFromCamera( mouse, camera );
+     let intersects = raycaster.intersectObjects( scene.children );
+     let selectedObject;
+     if (intersects.length > 0) {
     /*selectedObject = scene.getObjectByName(intersects[0].object.name);*/
 
     if (intersects[0].object.name === "Random") {  // отработка клика по кнопке Random
@@ -206,14 +225,11 @@ let selectedObject_opacity_05;
             if ( matrix_balls[i][j].positionX === intersects[0].object.position.x && matrix_balls[i][j].positionY ===
             intersects[0].object.position.y && matrix_balls[i][j].positionZ === intersects[0].object.position.z) {
             if (matrix_balls[i][j].visible_balls === true) {
-            button_click;
-            console.log (intersects[0].object.name);
+
             matrix_balls[i][j].visible_balls = false;
             selectedObject = scene.getObjectByName(intersects[0].object.name);
             selectedObject.material = material_ball_transparence;
             } else {matrix_balls[i][j].visible_balls = true;
-            button_click();
-            console.log (intersects[0].object.name);
             selectedObject = scene.getObjectByName(intersects[0].object.name);
            selectedObject.material = material_ball;
 
@@ -227,9 +243,9 @@ let selectedObject_opacity_05;
 }
 
     //  Создание текстуры
-    let texture_ball = THREE.ImageUtils.loadTexture('app/static/images/ameba_green.jpg'); //определяем текстуру шара
-    let texture_board = THREE.ImageUtils.loadTexture('app/static/images/stone.jpg'); //определяем текстуру плоскости
-    let texture_line = THREE.ImageUtils.loadTexture('app/static/images/gradient.jpg'); //определяем текстуру плоскости
+    let texture_ball = new THREE.TextureLoader().load( 'app/static/images/ameba_green1.jpg' ); //определяем текстуру шара
+    let texture_board = new THREE.TextureLoader().load( 'app/static/images/stone1.jpg' ); //определяем текстуру плоскости
+    let texture_line = new THREE.TextureLoader().load( 'app/static/images/gradient1.jpg' ); //определяем текстуру плоскости
 
     // создание объектов
    /* let geometry_text = new THREE.TextGeometry(); // создание плоскости*/
@@ -269,6 +285,7 @@ let selectedObject_opacity_05;
 function background() {
     const sphere = new THREE.SphereGeometry(2000, 128, 128);
     sphere.scale(-1, 1, 1);
+    sphere.name = "background";
     const texture = new THREE.Texture();
     const material = new THREE.MeshBasicMaterial({
         map: texture
@@ -289,7 +306,7 @@ for(let i=0; i<size_grid; i++){
     for(let j=0; j<size_grid; j++){
 
         if ( matrix_balls[i][j].visible_balls !== false) {
-    let mesh = new THREE.Mesh (ball, material_ball);
+    let mesh = new THREE.Mesh (ball, new THREE.MeshLambertMaterial( {map: texture_ball} ));
     mesh.position.x = matrix_balls[i][j].positionX;
     mesh.position.y = matrix_balls[i][j].positionY;
     mesh.position.z = matrix_balls[i][j].positionZ;
@@ -297,7 +314,7 @@ for(let i=0; i<size_grid; i++){
     scene.add (mesh);
     objects.push (mesh);
         } else {
-        let mesh = new THREE.Mesh (ball, material_ball_transparence);
+        let mesh = new THREE.Mesh (ball, new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0} ));
     mesh.position.x = matrix_balls[i][j].positionX;
     mesh.position.y = matrix_balls[i][j].positionY;
     mesh.position.z = matrix_balls[i][j].positionZ;
@@ -372,12 +389,13 @@ background();
 
 loop (); // вызов созданной сцены
 // координаты кнопок
-buttons("Random", 500, 000, 150, 1.59,-0.19,0);
-buttons("Start game", 500, 000, 300,1.59,-0.19,0);
-buttons("Clear", 500, 000, 00,1.59,-0.19,0);
+{
+buttons("Random", 500, 0, 150, 1.59,-0.19,0);
+buttons("Start game", 500, 0, 300,1.59,-0.19,0);
+buttons("Clear", 500, 0, 0,1.59,-0.19,0);
 buttons("butt4", -300, -400, -100,1.4,0.0,0);
 buttons("butt5", 100, -400, -100,1.4,0.0,0);
-
+}
 // создаем движение
 function loop() {
 /*initEventListeners();*/
@@ -386,7 +404,7 @@ function loop() {
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false ); // отслеживание наведения мышки на объект
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
-    document.addEventListener ('mousemove', mouseMove,false);
+    /*document.addEventListener ('mousemove', mouseMove,false);*/
 
 }
 
@@ -395,7 +413,7 @@ function loop() {
 // загрузим шрифт
 function loadFont(url) {
       return new Promise((resolve, reject) => {
-        loader.load(url, resolve, undefined, reject);
+        loader.load (url, resolve, undefined, reject);
       });
     }
 
@@ -414,9 +432,9 @@ for(let i=0; i<size_grid; i++){
             for  (let n=0;n<scene.children.length; n++) {
             if (scene.children[n].name === name) {
                 if (matrix_balls[i][j].visible_balls === false) {
-                scene.children[n].material = material_ball_transparence;
+                scene.children[n].material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0} );
                 } else {
-                scene.children[n].material = material_ball;
+                scene.children[n].material = new THREE.MeshLambertMaterial( {map: texture_ball} );
                 }
             }
             }
@@ -434,7 +452,7 @@ let name;
     name = "i-"+i+" j-"+j;
         for  (let n=0;n<scene.children.length; n++) {
             if (scene.children[n].name === name) {
-                if (scene.children[n].material === material_ball) {
+                if (scene.children[n].material === new THREE.MeshLambertMaterial( {map: texture_ball} )) {
                 matrix[i][j] = 1;
                 /*scene.children[n].material = material_ball_transparence;*/
                 } else {
@@ -452,10 +470,10 @@ function button_clear () {
 button_sound ();
 for(let i=0; i<size_grid; i++){
     for(let j=0; j<size_grid; j++){
-            name = "i-"+i+" j-"+j;
+            let name = "i-"+i+" j-"+j;
             for  (let n=0;n<scene.children.length; n++) {
             if (scene.children[n].name === name) {
-                scene.children[n].material = material_ball_transparence;
+                scene.children[n].material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0} );
             }
          }
 
