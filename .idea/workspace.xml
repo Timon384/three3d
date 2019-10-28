@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2f60abf-4f68-4d86-8a66-5904cc79a22a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/images/ameba_green1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/images/gradient1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/images/stone1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/images/ball.png" beforeDir="false" />
-    </list>
+    <list default="true" id="c2f60abf-4f68-4d86-8a66-5904cc79a22a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,25 +25,25 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Work\synergy\test3drender\app\js" />
+      <recent name="C:\Users\Work\synergy\test3drender\app" />
+      <recent name="C:\Users\Work\synergy\test3drender\app\templates" />
+      <recent name="C:\Users\Work\synergy\test3drender\app\three.js-master\build" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kramarenko\PycharmProjects\three3d\app\static\images" />
       <recent name="C:\Users\Work\synergy\test3drender\app\static\sounds" />
       <recent name="C:\Users\Work\synergy\test3drender\app\js\loaders" />
       <recent name="C:\Users\Work\synergy\test3drender\app\static\images" />
       <recent name="C:\Users\Work\synergy\test3drender\app\js\controls\fonts" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Work\synergy\test3drender\app\js" />
-      <recent name="C:\Users\Work\synergy\test3drender\app" />
-      <recent name="C:\Users\Work\synergy\test3drender\app\templates" />
-      <recent name="C:\Users\Work\synergy\test3drender\app\three.js-master\build" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -90,7 +80,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
