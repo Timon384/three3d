@@ -62,7 +62,6 @@ function matrixArray_ball(rows,columns,height,height){
         n = new balls (j*height/rows + height/rows/2 - height/2, height/2 - i*height/columns - height/columns/2 , height/size_grid/2.5, 0.001, 0.001, 0.001, false);
         arr[i][j] = n;
        }
-console.log(arr[0][0])
     }
   }
   return arr;
@@ -130,52 +129,34 @@ scene.add(light,light1,light2,light3);
     controls.enableDamping = 0.2;
     controls.rotateSpeed = 5;
     controls.saveState();
+let O;
 
-
-
-
- /*function mouseMove (event) {
-     event.preventDefault();
+function mouseMove (event) {
+    event.preventDefault();
      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
      mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
      raycaster.setFromCamera( mouse, camera );
      let intersects = raycaster.intersectObjects( scene.children );
+     let name = intersects[ 0 ].object.name;
+
+     /*scene.getObjectByName(INTERSECTED.name).material =  INTERSECTED.material;*/
      if ( intersects.length > 0 ) {
-         if ( INTERSECTED != intersects[ 0 ].object) {
+         if ( INTERSECTED != intersects[ 0 ].object && name.indexOf("i-") !== -1) {
 
-             if ( INTERSECTED && intersects[0].object.material.opacity !== 1) INTERSECTED.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0});
+             console.log(name.indexOf("i-"));
              INTERSECTED = intersects[ 0 ].object;
+             O.name = intersects [0].object.name;
+             INTERSECTED.material = intersects [0].object.material;
+             /*INTERSECTED.material = intersects [ 0 ].object.material;*/
+             intersects [ 0 ].object.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 1.0});
+         }
+     } else {
 
-             /!*INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();*!/
-             console.log ("INTERSECTED= ",INTERSECTED.material.opacity);
-             INTERSECTED.material = new THREE.MeshLambertMaterial( {map: texture_ball} );
-					}
-				} else {
-					if ( INTERSECTED ) INTERSECTED.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0} );
-					INTERSECTED = null;
-				}
+            INTERSECTED = null;
+     }
+}
 
- /!*let projector = new THREE.Projector();
-   let vector = new THREE.Vector3(
-        ( event.clientX / width ) * 2 - 1,
-      - ( event.clientY / height ) * 2 + 1,
-        1);
-   mouse.x = ( event.clientX / width ) * 2 - 1 ;
-   mouse.y = - ( event.clientY / height ) * 2 + 1;
-    projector.unprojectVector( vector, camera );
-    let raycaster = new THREE.Raycaster(camera.position, mouse);
-    let intersects = raycaster.intersectObjects(scene.children);
-    if (intersects.length > 0) {
-        if (INTERSECTED != intersects[0].object) {
-    console.log (INTERSECTED, intersects[0].object);
-    }
 
-    selectedObject_opacity_05 = scene.getObjectByName(intersects[0].object.name);
-    intersects[0].object.material = material_ball_transparence_0_5;
-
-    }*!/
- }*/
 
 
    // установка\удаление шариков  отработка кнопок по 1 клику
@@ -404,7 +385,7 @@ function loop() {
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false ); // отслеживание наведения мышки на объект
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
-    /*document.addEventListener ('mousemove', mouseMove,false);*/
+    document.addEventListener ('mousemove', mouseMove,false);
 
 }
 
