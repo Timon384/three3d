@@ -1,14 +1,14 @@
 
 
-window.onload =  async function () {
+window.onload =  async function (array, offset) {
 // задаем параметры окна (на всю страницу)
     let width = window.innerWidth;
     let height = window.innerHeight;
     let objects = [];
     let loader = new THREE.FontLoader();
     let canvas = document.getElementById (`canvas`)
-    canvas.setAttribute (`width`, width);
-    canvas.setAttribute (`height`, height);
+        canvas.setAttribute (`width`, width);
+        canvas.setAttribute (`height`, height);
     let size_grid = 20; // задаем размеры сетки
     let font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
@@ -62,7 +62,7 @@ function matrixArray_ball(rows,columns,height,height){
         n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, false);
         arr[i][j] = n;
        }
-
+console.log(arr[0][0])
     }
   }
   return arr;
@@ -76,8 +76,9 @@ function matrixArray_ball(rows,columns,height,height){
     scene.position.x = -380;
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
-    camera.position.set (0, -1100, 700);
-    camera.name = camera;
+    camera.position.set(0, -1100, 700);
+
+    camera.name = "camera";
     /*camera.rotation.set (100,0,0);*/
 
 // загрузка в камеру звука
@@ -99,7 +100,6 @@ let sound_space = new THREE.Audio( listener_sound );
 });
 
 // создание света
-    /*let light = new THREE.AmbientLight (0xFFFFFF,1.0);*/
     // добавляем точечный свет
     let light = new THREE.PointLight( 0xFFFFFF, 1.0, 1000 );
     let light1 = new THREE.PointLight( 0xFFFFFF, 2.0, 1000 );
@@ -452,7 +452,7 @@ let name;
     name = "i-"+i+" j-"+j;
         for  (let n=0;n<scene.children.length; n++) {
             if (scene.children[n].name === name) {
-                if (scene.children[n].material === new THREE.MeshLambertMaterial( {map: texture_ball} )) {
+                if (scene.children[n].material.map === texture_ball ) {
                 matrix[i][j] = 1;
                 /*scene.children[n].material = material_ball_transparence;*/
                 } else {
