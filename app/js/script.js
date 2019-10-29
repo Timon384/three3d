@@ -56,10 +56,10 @@ function matrixArray_ball(rows,columns,height,height){
     arr[i] = new Array();
     for(let j=0; j<size_grid; j++){
         if ( matrix[i][j] === 1) {
-        n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, true);
+        n = new balls (j*height/rows + height/rows/2 - height/2, height/2 - i*height/columns - height/columns/2 , height/size_grid/2.5, 0.001, 0.001, 0.001, true);
         arr[i][j] = n;
         } else {
-        n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, false);
+        n = new balls (j*height/rows + height/rows/2 - height/2, height/2 - i*height/columns - height/columns/2 , height/size_grid/2.5, 0.001, 0.001, 0.001, false);
         arr[i][j] = n;
        }
 console.log(arr[0][0])
