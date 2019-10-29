@@ -1,0 +1,173 @@
+[33mcommit 0bf7a1a41216c6818c9a5e73de0d98080a886dd8[m[33m ([m[1;36mHEAD -> [m[1;32mfront[m[33m, [m[1;31morigin/front[m[33m)[m
+Author: timon384 <pumba@meta.ua>
+Date:   Tue Oct 29 09:54:13 2019 +0200
+
+    rebase
+
+[33mcommit cb2fcfef8b115bbb375f7ec434bbe73186565306[m
+Author: timon384 <pumba@meta.ua>
+Date:   Mon Oct 28 16:02:36 2019 +0200
+
+    reconfigure old function code
+
+[33mcommit 5a6f61531d7475d0d6995d7a43751e71e6afe3e2[m
+Author: Work <pumba@meta.ua>
+Date:   Mon Oct 21 07:31:26 2019 +0300
+
+    back
+
+[33mcommit 105c9a844aed39ba814c1c49e744bfc46a38525f[m
+Author: Work <pumba@meta.ua>
+Date:   Sat Oct 19 10:56:04 2019 +0300
+
+    click sound +
+
+[33mcommit 003f5fea7bd0af360364ffbdd20bec83d30fcf2e[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 16:17:28 2019 +0300
+
+    clear old code 3
+
+[33mcommit 1215485358d334c8cf74d9f46057def3199e4a63[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 16:16:54 2019 +0300
+
+    clear old code 2
+
+[33mcommit d0949bff1b31c6c322d4984449b520dc7d2a8fac[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 16:11:28 2019 +0300
+
+    crear old code
+
+[33mcommit 4453e86efed7185f334095a676d6249eb2c0baca[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 15:47:56 2019 +0300
+
+    button start work
+
+[33mcommit 00f9d29db909038dbfa82cb5491d3e02b18818d2[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 14:34:06 2019 +0300
+
+    button clear is work
+
+[33mcommit c8f09c60d111ed84b068f3ebc24fce09fea21eca[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 14:25:42 2019 +0300
+
+    button Random is work
+
+[33mcommit d48c2b09464a45ccf7aed8504d34cfdb95444a74[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 13:41:03 2019 +0300
+
+    delete all var
+
+[33mcommit 4d8c380b1009d9fec08bc5e0ba3c9906450d8c60[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 11:25:36 2019 +0300
+
+    light rotation
+
+[33mcommit 4cdbf8805868b87afeda633bd081d34f08c0b8ea[m
+Author: Work <pumba@meta.ua>
+Date:   Fri Oct 18 11:10:14 2019 +0300
+
+    fix  doble click center position. Fix uvisible balls. include 4 point lights
+
+[33mcommit f6ee9bed3428db9140d62c6fff87744164e1793b[m
+Author: Work <pumba@meta.ua>
+Date:   Thu Oct 17 15:06:19 2019 +0300
+
+    backup
+
+[33mcommit b8b219ac2e341ac2b5c93fce18b4ab7db6485a47[m
+Author: Work <pumba@meta.ua>
+Date:   Wed Oct 16 16:08:24 2019 +0300
+
+    change color button bad
+
+[33mcommit 14ae41f20a226ebab2743e64936fa017055e8a43[m
+Author: Work <pumba@meta.ua>
+Date:   Wed Oct 16 13:38:25 2019 +0300
+
+    generate buttons   fnd textsÐÐto scene
+
+[33mcommit f787581c5aaa7e57d303486120979d43b267427d[m
+Author: Work <pumba@meta.ua>
+Date:   Tue Oct 15 10:49:37 2019 +0300
+
+    balls visible and unvisible  mouse click
+
+[33mcommit f92560d545353101f6de65b2b53657c84b5bd954[m
+Author: Work <pumba@meta.ua>
+Date:   Mon Oct 14 14:43:10 2019 +0300
+
+    balls true to false click mouse
+
+[33mcommit 8ca391300c7d7435b6e7b4037c6b6a25e523c0c9[m
+Author: Work <pumba@meta.ua>
+Date:   Sat Oct 12 18:28:13 2019 +0300
+
+    mouse koordinate x y
+
+[33mcommit 4c07df8e1574dd8400b89f1e84aaf378880a3aa9[m
+Author: Work <pumba@meta.ua>
+Date:   Sat Oct 12 12:12:00 2019 +0300
+
+    create transparency balls
+
+[33mcommit 94598c8263975d4d3987831d47d3e126b5a3c711[m
+Author: timon384 <pumba@meta.ua>
+Date:   Fri Oct 11 15:53:34 2019 +0300
+
+    insert  balls_visible true or false in matrix_balls
+
+[33mcommit aac92be3266256f2f052e715272b27a5cc4f1164[m
+Author: Work <pumba@meta.ua>
+Date:   Tue Oct 8 16:20:47 2019 +0300
+
+    working
+
+[33mcommit 21ea44a30238e4ff27105ac86ed9bbd3b4116000[m
+Author: Work <pumba@meta.ua>
+Date:   Tue Oct 8 11:22:51 2019 +0300
+
+    orbit control
+
+[33mcommit 8194bebfdfd7a991202f987c20984b1da82fb46a[m
+Author: Work <pumba@meta.ua>
+Date:   Mon Oct 7 23:20:51 2019 +0300
+
+    1
+
+[33mcommit eeaf5719058ebea9fd0449bf71abac0d8c0c03bc[m
+Author: Work <pumba@meta.ua>
+Date:   Mon Oct 7 22:48:42 2019 +0300
+
+    mash
+
+[33mcommit fc5f7b3e8d5d454ef6bf26dfb327e29bd21cf5ff[m
+Author: timon384 <pumba@meta.ua>
+Date:   Mon Oct 7 17:48:16 2019 +0300
+
+    orto
+
+[33mcommit c59d30b92a03a8aa09411dd8de971107365a491a[m
+Author: timon384 <pumba@meta.ua>
+Date:   Mon Oct 7 15:56:24 2019 +0300
+
+    textures. run fix
+
+[33mcommit 20f070da22934bf6b87b4d60fcf74b07df375268[m
+Author: timon384 <pumba@meta.ua>
+Date:   Mon Oct 7 15:54:45 2019 +0300
+
+    textures run
+
+[33mcommit 1613fed1f6fee08173b158ff4096d2eef7cb41de[m
+Author: Work <pumba@meta.ua>
+Date:   Sun Oct 6 21:04:57 2019 +0300
+
+    first

@@ -1,14 +1,14 @@
 
 
-window.onload =  async function () {
+window.onload =  async function (array, offset) {
 // задаем параметры окна (на всю страницу)
     let width = window.innerWidth;
     let height = window.innerHeight;
     let objects = [];
     let loader = new THREE.FontLoader();
     let canvas = document.getElementById (`canvas`)
-    canvas.setAttribute (`width`, width);
-    canvas.setAttribute (`height`, height);
+        canvas.setAttribute (`width`, width);
+        canvas.setAttribute (`height`, height);
     let size_grid = 20; // задаем размеры сетки
     let font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
@@ -57,13 +57,12 @@ function matrixArray_ball(rows,columns,height,height){
     arr[i] = new Array();
     for(let j=0; j<size_grid; j++){
         if ( matrix[i][j] === 1) {
-        n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, true);
+        n = new balls (j*height/rows + height/rows/2 - height/2, height/2 - i*height/columns - height/columns/2 , height/size_grid/2.5, 0.001, 0.001, 0.001, true);
         arr[i][j] = n;
         } else {
-        n = new balls (i*height/rows + height/rows/2 - height/2, j*height/columns + height/columns/2 -height/2, height/size_grid/2.5, 0.001, 0.001, 0.001, false);
+        n = new balls (j*height/rows + height/rows/2 - height/2, height/2 - i*height/columns - height/columns/2 , height/size_grid/2.5, 0.001, 0.001, 0.001, false);
         arr[i][j] = n;
        }
-
     }
   }
   return arr;
@@ -77,8 +76,9 @@ function matrixArray_ball(rows,columns,height,height){
     scene.position.x = -380;
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
-    camera.position.set (0, -1100, 700);
-    camera.name = camera;
+    camera.position.set(0, -1100, 700);
+
+    camera.name = "camera";
     /*camera.rotation.set (100,0,0);*/
 
 // загрузка в камеру звука
@@ -100,7 +100,6 @@ let sound_space = new THREE.Audio( listener_sound );
 });
 
 // создание света
-    /*let light = new THREE.AmbientLight (0xFFFFFF,1.0);*/
     // добавляем точечный свет
     let light = new THREE.PointLight( 0xFFFFFF, 1.0, 1000 );
     let light1 = new THREE.PointLight( 0xFFFFFF, 2.0, 1000 );
@@ -136,52 +135,34 @@ scene.add(light,light1,light2,light3,light4);
     controls.enableDamping = 0.2;
     controls.rotateSpeed = 5;
     controls.saveState();
+let O;
 
-
-
-
- /*function mouseMove (event) {
-     event.preventDefault();
+function mouseMove (event) {
+    event.preventDefault();
      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
      mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
      raycaster.setFromCamera( mouse, camera );
      let intersects = raycaster.intersectObjects( scene.children );
+     let name = intersects[ 0 ].object.name;
+
+     /*scene.getObjectByName(INTERSECTED.name).material =  INTERSECTED.material;*/
      if ( intersects.length > 0 ) {
-         if ( INTERSECTED != intersects[ 0 ].object) {
+         if ( INTERSECTED != intersects[ 0 ].object && name.indexOf("i-") !== -1) {
 
-             if ( INTERSECTED && intersects[0].object.material.opacity !== 1) INTERSECTED.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0});
+             console.log(name.indexOf("i-"));
              INTERSECTED = intersects[ 0 ].object;
+             O.name = intersects [0].object.name;
+             INTERSECTED.material = intersects [0].object.material;
+             /*INTERSECTED.material = intersects [ 0 ].object.material;*/
+             intersects [ 0 ].object.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 1.0});
+         }
+     } else {
 
-             /!*INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();*!/
-             console.log ("INTERSECTED= ",INTERSECTED.material.opacity);
-             INTERSECTED.material = new THREE.MeshLambertMaterial( {map: texture_ball} );
-					}
-				} else {
-					if ( INTERSECTED ) INTERSECTED.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 0.0} );
-					INTERSECTED = null;
-				}
+            INTERSECTED = null;
+     }
+}
 
- /!*let projector = new THREE.Projector();
-   let vector = new THREE.Vector3(
-        ( event.clientX / width ) * 2 - 1,
-      - ( event.clientY / height ) * 2 + 1,
-        1);
-   mouse.x = ( event.clientX / width ) * 2 - 1 ;
-   mouse.y = - ( event.clientY / height ) * 2 + 1;
-    projector.unprojectVector( vector, camera );
-    let raycaster = new THREE.Raycaster(camera.position, mouse);
-    let intersects = raycaster.intersectObjects(scene.children);
-    if (intersects.length > 0) {
-        if (INTERSECTED != intersects[0].object) {
-    console.log (INTERSECTED, intersects[0].object);
-    }
 
-    selectedObject_opacity_05 = scene.getObjectByName(intersects[0].object.name);
-    intersects[0].object.material = material_ball_transparence_0_5;
-
-    }*!/
- }*/
 
 
    // установка\удаление шариков  отработка кнопок по 1 клику
@@ -249,9 +230,9 @@ scene.add(light,light1,light2,light3,light4);
 }
 
     //  Создание текстуры
-    let texture_ball = new THREE.TextureLoader().load( 'app/static/images/ameba_green1.jpg' ); //определяем текстуру шара
-    let texture_board = new THREE.TextureLoader().load( 'app/static/images/stone1.jpg' ); //определяем текстуру плоскости
-    let texture_line = new THREE.TextureLoader().load( 'app/static/images/gradient1.jpg' ); //определяем текстуру плоскости
+    let texture_ball = new THREE.TextureLoader().load( 'static/images/ameba_green1.jpg' ); //определяем текстуру шара
+    let texture_board = new THREE.TextureLoader().load( 'static/images/stone1.jpg' ); //определяем текстуру плоскости
+    let texture_line = new THREE.TextureLoader().load( 'static/images/gradient1.jpg' ); //определяем текстуру плоскости
 
     // создание объектов
    /* let geometry_text = new THREE.TextGeometry(); // создание плоскости*/
@@ -410,7 +391,7 @@ function loop() {
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false ); // отслеживание наведения мышки на объект
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
-    /*document.addEventListener ('mousemove', mouseMove,false);*/
+    document.addEventListener ('mousemove', mouseMove,false);
 
 }
 
@@ -458,7 +439,7 @@ let name;
     name = "i-"+i+" j-"+j;
         for  (let n=0;n<scene.children.length; n++) {
             if (scene.children[n].name === name) {
-                if (scene.children[n].material === new THREE.MeshLambertMaterial( {map: texture_ball} )) {
+                if (scene.children[n].material.map === texture_ball ) {
                 matrix[i][j] = 1;
                 /*scene.children[n].material = material_ball_transparence;*/
                 } else {
@@ -469,7 +450,7 @@ let name;
 
     }
   }
-console.log (scene);
+console.log (matrix);
 }
 // кнопка очистка поля
 function button_clear () {
