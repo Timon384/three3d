@@ -19,8 +19,8 @@ window.onload =  async function (array, offset) {
     let IMAGE_LOADER = new THREE.ImageLoader(LOADING_MANAGER);
     let listener_sound = new THREE.AudioListener();
     let mouse = new THREE.Vector2(), INTERSECTED;
-    let  raycaster = new THREE.Raycaster();
-
+    let raycaster = new THREE.Raycaster();
+    let loader_GLTF = new THREE.GLTFLoader();
 
 // функция создания новой матрицы
 function matrixArray(rows,columns){
@@ -137,7 +137,7 @@ scene.add(light,light1,light2,light3,light4);
     controls.saveState();
 let O;
 
-function mouseMove (event) {
+/*function mouseMove (event) {
     event.preventDefault();
      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
      mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
@@ -145,7 +145,7 @@ function mouseMove (event) {
      let intersects = raycaster.intersectObjects( scene.children );
      let name = intersects[ 0 ].object.name;
 
-     /*scene.getObjectByName(INTERSECTED.name).material =  INTERSECTED.material;*/
+     /!*scene.getObjectByName(INTERSECTED.name).material =  INTERSECTED.material;*!/
      if ( intersects.length > 0 ) {
          if ( INTERSECTED != intersects[ 0 ].object && name.indexOf("i-") !== -1) {
 
@@ -153,14 +153,14 @@ function mouseMove (event) {
              INTERSECTED = intersects[ 0 ].object;
              O.name = intersects [0].object.name;
              INTERSECTED.material = intersects [0].object.material;
-             /*INTERSECTED.material = intersects [ 0 ].object.material;*/
+             /!*INTERSECTED.material = intersects [ 0 ].object.material;*!/
              intersects [ 0 ].object.material = new THREE.MeshPhysicalMaterial( { transparent: true, transparency: 1.0, opacity: 1.0});
          }
      } else {
 
             INTERSECTED = null;
      }
-}
+}*/
 
 
 
@@ -233,6 +233,39 @@ function mouseMove (event) {
     let texture_ball = new THREE.TextureLoader().load( 'static/images/ameba_green1.jpg' ); //определяем текстуру шара
     let texture_board = new THREE.TextureLoader().load( 'static/images/stone1.jpg' ); //определяем текстуру плоскости
     let texture_line = new THREE.TextureLoader().load( 'static/images/gradient1.jpg' ); //определяем текстуру плоскости
+
+    // загрузка 3D модели
+    loader_GLTF.load(
+	// resource URL
+	'static/images/ameba (2).glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+
+
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Scene
+		gltf.scenes; // Array<THREE.Scene>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+
 
     // создание объектов
    /* let geometry_text = new THREE.TextGeometry(); // создание плоскости*/
@@ -391,7 +424,7 @@ function loop() {
     requestAnimationFrame (function () {loop();}); // включаем цикл
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false ); // отслеживание наведения мышки на объект
     document.addEventListener( 'dblclick', cameraCenterPosition, false ); // событие центрирование камеры по двойному клику
-    document.addEventListener ('mousemove', mouseMove,false);
+    /*document.addEventListener ('mousemove', mouseMove,false);*/
 
 }
 
@@ -470,7 +503,7 @@ for(let i=0; i<size_grid; i++){
 // кнопка butt4
 function butt4 () {
 button_sound ();
-
+console.log (loader_GLTF);
 }
 // кнопка butt5
 function butt5 () {
