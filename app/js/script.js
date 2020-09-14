@@ -15,7 +15,7 @@ window.onload =  async function (array, offset) {
     let size_grid = 20; // задаем размеры сетки
     let font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
-
+    let loader_obj = new THREE.OBJLoader();
     let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 
     let LOADING_MANAGER = new THREE.LoadingManager();
@@ -41,8 +41,8 @@ function matrixArray(rows,columns){
   return arr;
 }
 
-// генерируем параметры каждого шарика
-function matrixArray_ball(rows,columns,height,height){
+// функция генерации параметров каждого шарика в пространстве доски
+function matrixArray_ball(rows,columns,width,height){
     class balls {
     constructor (positionX,positionY,positionZ,rotationX,rotationY,rotationZ,visible_balls) {
     this.positionX = positionX;
@@ -71,7 +71,7 @@ function matrixArray_ball(rows,columns,height,height){
   return arr;
 }
 
-// создаем рендеринг
+// создаем поле отображения
     let renderer = new THREE.WebGLRenderer({canvas: canvas});
     renderer.setClearColor (0x000000); // задаем цвет фона
 // создание сцены
@@ -79,7 +79,7 @@ function matrixArray_ball(rows,columns,height,height){
     scene.position.x = -380;
 // создание камеры
     let camera = new THREE.PerspectiveCamera(40, width/height, 0.1, 10000);
-    camera.position.set(0, -1100, 700);
+    camera.position.set(0, -1600, 700);
 
     camera.name = "camera";
     /*camera.rotation.set (100,0,0);*/
@@ -112,9 +112,9 @@ let sound_space = new THREE.Audio( listener_sound );
 // устанавливаем координаты света
     light.position.set( 800, -350, 450 );
     light1.position.set( -100, -100, 350 );
-    light2.position.set( 200, -550, -50 );
+    light2.position.set( 200, -750, -50 );
     light3.position.set( 1100, -450, -50 );
-    light4.position.set( 000, -50, 650 );
+    light4.position.set( 1000, -50, 650 );
 
   /*let pointLightHelper = new THREE.PointLightHelper( light, 100 ); // вспомогательные вектора света
     let pointLightHelper1 = new THREE.PointLightHelper( light1, 100 );
@@ -130,12 +130,13 @@ scene.add(light,light1,light2,light3,light4);
 
 // вращение мышью и ограничения вращения
     let controls = new THREE.OrbitControls(camera, canvas);
-    controls.minAzimuthAngle = -Math.PI/10.0;
-    controls.maxAzimuthAngle = Math.PI/10.0;
-    controls.minPolarAngle = Math.PI/1.4;
-    controls.maxPolarAngle = Math.PI/1.1;
-    controls.maxDistance = 2500;
-    controls.enableDamping = 0.2;
+    // controls.minAzimuthAngle = -Math.PI/10.0;
+    // controls.maxAzimuthAngle = Math.PI/10.0;
+    // controls.minPolarAngle = Math.PI/1.4;
+    // controls.maxPolarAngle = Math.PI/1.1;
+    controls.maxDistance = 3500;
+    controls.minDistance =1500;
+    controls.enableDamping = 0.5;
     controls.rotateSpeed = 5;
     controls.saveState();
 let O;
@@ -385,8 +386,8 @@ loop (); // вызов созданной сцены
 buttons("Random", 500, 0, 150, 1.59,-0.19,0);
 buttons("Start game", 500, 0, 300,1.59,-0.19,0);
 buttons("Clear", 500, 0, 0,1.59,-0.19,0);
-buttons("butt4", -300, -400, -100,1.4,0.0,0);
-buttons("butt5", 100, -400, -100,1.4,0.0,0);
+buttons("butt4", -300, -500, -100,1.4,0.0,0);
+buttons("butt5", 100, -500, -100,1.4,0.0,0);
 }
 // создаем движение
 function loop() {
@@ -409,7 +410,7 @@ function loadFont(url) {
       });
     }
 
-// генерация нового поля с шариками по крику кнопки "Random"
+// генерация нового поля с шариками по клику кнопки "Random"
 function button_Random () {
 button_sound ();
 let name;
@@ -501,6 +502,31 @@ async function button_click(intersects,i) {
     intersects[0].object.position.z = intersects[0].object.position.z +i;
     return intersects;
 }
+// загружаем объект .obj
+loader.load(
+	// resource URL
+	'app/static/loadobject/17509_Finger_puppet_duck_v1.obj',
+	// called when resource is loaded
+	function ( object ) {
+
+		scene.add( object );
+
+	},
+	// called when loading is in progresses
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+
 function button_sound () {
 let sound = sound_click;
 	sound.play();
@@ -510,3 +536,4 @@ let sound = sound_click;
 
 /*
 scene.getObjectByName( "GAME LIFE" ).rotation.x = scene.getObjectByName( "GAME LIFE" ).rotation.x - controls.object.rotation.x;*/
+
