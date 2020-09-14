@@ -1,7 +1,10 @@
 
-
 window.onload =  async function (array, offset) {
 // задаем параметры окна (на всю страницу)
+
+
+
+
     let width = window.innerWidth;
     let height = window.innerHeight;
     let objects = [];
@@ -233,37 +236,6 @@ let O;
     let texture_ball = new THREE.TextureLoader().load( 'static/images/ameba_green1.jpg' ); //определяем текстуру шара
     let texture_board = new THREE.TextureLoader().load( 'static/images/stone1.jpg' ); //определяем текстуру плоскости
     let texture_line = new THREE.TextureLoader().load( 'static/images/gradient1.jpg' ); //определяем текстуру плоскости
-
-    // загрузка 3D модели
-    loader_GLTF.load(
-	// resource URL
-	'static/images/ameba (2).glb',
-	// called when the resource is loaded
-	function ( gltf ) {
-
-
-		scene.add( gltf.scene );
-
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Scene
-		gltf.scenes; // Array<THREE.Scene>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened' );
-
-	}
-);
 
 
 
