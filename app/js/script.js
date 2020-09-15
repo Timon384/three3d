@@ -15,7 +15,7 @@ window.onload =  async function (array, offset) {
     let size_grid = 20; // задаем размеры сетки
     let font = await loadFont('js/fonts/helvetiker_bold.typeface.json'); // загрузка шрифта
     let matrix = matrixArray(size_grid,size_grid);// генерируем новую матрицу
-    let loader_obj = new THREE.OBJLoader();
+
     let matrix_balls = matrixArray_ball(size_grid,size_grid,width,height); // генерируем новую матрицу balls
 
     let LOADING_MANAGER = new THREE.LoadingManager();
@@ -502,29 +502,7 @@ async function button_click(intersects,i) {
     intersects[0].object.position.z = intersects[0].object.position.z +i;
     return intersects;
 }
-// загружаем объект .obj
-loader.load(
-	// resource URL
-	'app/static/loadobject/17509_Finger_puppet_duck_v1.obj',
-	// called when resource is loaded
-	function ( object ) {
 
-		scene.add( object );
-
-	},
-	// called when loading is in progresses
-	function ( xhr ) {
-
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened' );
-
-	}
-);
 
 
 function button_sound () {
